@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lordamas <lordamas@student.42berlin.d>     +#+  +:+       +#+         #
+#    By: lordamas <lordamas@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/07/13 14:00:33 by lordamas          #+#    #+#              #
-#    Updated: 2026/07/13 14:03:42 by lordamas         ###   ########.fr        #
+#    Updated: 2026/07/16 17:18:32 by lordamas         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,10 +14,9 @@ NAME        = push_swap
 CC          = cc
 CFLAGS      = -Wall -Wextra -Werror
 RM          = rm -f
-AR          = ar rcs
 
 # Mandatory sources
-SRC         = 
+SRC         = main.c check_input.c
 
 # Objects
 OBJ         = $(SRC:.c=.o)
@@ -25,11 +24,11 @@ OBJ         = $(SRC:.c=.o)
 # Default rule
 all: $(NAME)
 
-# Library compilation
+# Executable compilation
 $(NAME): $(OBJ)
-	$(AR) $(NAME) $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 
-# Rule to compile .o files with the correct flags
+# Compile .c files into .o files
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
