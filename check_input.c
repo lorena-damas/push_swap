@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lordamas <lordamas@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/15 19:15:27 by lordamas          #+#    #+#             */
-/*   Updated: 2026/07/16 17:16:13 by lordamas         ###   ########.fr       */
+/*   Updated: 2026/07/17 09:32:29 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,17 @@ static int	has_duplicates(int *values, int count)
 	return (0);
 }
 
+static long long	f_limit(int sign)
+{
+	long long	limit;
+
+	if (sign == -1)
+		limit = -(long long)INT_MIN;
+	else
+		limit = INT_MAX;
+	return (limit);
+}
+
 static int	str_to_int(char *str, int *value)
 {
 	long long	result;
@@ -67,10 +78,7 @@ static int	str_to_int(char *str, int *value)
 			sign = -1;
 		i++;
 	}
-	if (sign == -1)
-		limit = -(long long)INT_MIN;
-	else
-		limit = INT_MAX;
+	limit = f_limit(sign);
 	while (str[i] != '\0')
 	{
 		if (result > (limit - (str[i] - '0')) / 10)
