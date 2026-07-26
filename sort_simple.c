@@ -6,7 +6,7 @@
 /*   By: jotto <jotto@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/25 14:41:40 by jotto             #+#    #+#             */
-/*   Updated: 2026/07/26 20:12:10 by jotto            ###   ########.fr       */
+/*   Updated: 2026/07/26 21:27:25 by jotto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,19 @@ void	sort_simple(int *a, int *b, int *sizea, int *sizeb)
 		index = find_min_value(a, *sizea);
 		if (index <= *sizea / 2)
 		{
-			while (index-- > 0)
+			while (index > 0)
+			{
 				op_rotate(a, *sizea, 'a');
+				index--;
+			}
 		}
 		else
 		{
-			while (index++ < *sizea)
+			while (index < *sizea)
+			{
 				op_reverse(a, *sizea, 'a');
+				index++;
+			}
 		}
 		op_push(a, b, sizea, sizeb, 'b');
 	}

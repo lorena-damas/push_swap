@@ -43,3 +43,12 @@ Duplicate tests:
 ./push_swap 0 4 8 0
 ./push_swap 42 +42
 ./push_swap -0 0
+
+Sorting Logic - sort_simple
+
+- find the smallest number in stack a (find_min_value)
+- check whether it reaches the top faster by rotating it forward or backward
+- rotate it to the top and place it on stack b
+- repeat until stack a is empty
+- move everything from stack b back to stack a
+
