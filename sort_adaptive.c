@@ -15,10 +15,10 @@
 
 static double	compute_disorder(int *a, int count)
 {
-	int	mistakes;
-	int	total;
-	int	i;
-	int j;
+	int		mistakes;
+	int		total;
+	int		i;
+	int		j;
     double disorder;
 
 	mistakes = 0;
