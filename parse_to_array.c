@@ -20,9 +20,9 @@ int	parse_args(int argc, char **argv, int *values, t_strategy *strategy)
 {
 //!!!!!!!!!!!!!!!! UNDER CONSTRUCTION --------- LONGER THAN 25 LINES !!!!!!!!!!!!!!!!
 	char	**copy;
-	int	count;
-	int	i;
-	int	returnvalue;
+	int		count;
+	int		i;
+	int		returnvalue;
 
 	*strategy = ADAPTIVE;
 	copy = malloc(argc * sizeof(*copy));
