@@ -12,10 +12,10 @@
 
 NAME        = push_swap
 CC          = cc
-CFLAGS      = -Wall -Wextra -Werror -I. -I$(LIBFT_DIR)
 RM          = rm -f
 LIBFT_DIR	= libft
 LIBFT		= $(LIBFT_DIR)/libft.a
+CFLAGS      = -Wall -Wextra -Werror -I. -I$(LIBFT_DIR)
 
 # Mandatory sources
 SRC         = main.c check_input.c operations.c sort_utils.c sort_simple.c \
