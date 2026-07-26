@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lordamas <lordamas@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jotto <jotto@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 13:30:20 by lordamas          #+#    #+#             */
-/*   Updated: 2026/07/16 17:15:24 by lordamas         ###   ########.fr       */
+/*   Updated: 2026/07/26 20:26:47 by jotto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include "operations.h"
 #include <stdlib.h>
 #include <unistd.h>
 
