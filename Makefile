@@ -12,11 +12,14 @@
 
 NAME        = push_swap
 CC          = cc
-CFLAGS      = -Wall -Wextra -Werror
+CFLAGS      = -Wall -Wextra -Werror -I. -I$(LIBFT_DIR)
 RM          = rm -f
+LIBFT_DIR	= libft
+LIBFT		= $(LIBFT_DIR)/libft.a
 
 # Mandatory sources
-SRC         = main.c check_input.c
+SRC         = main.c check_input.c operations.c sort_utils.c sort_simple.c \
+			sort_medium.c sort_complex.c sort_adaptive.c parse.c
 
 # Objects
 OBJ         = $(SRC:.c=.o)
@@ -24,9 +27,12 @@ OBJ         = $(SRC:.c=.o)
 # Default rule
 all: $(NAME)
 
+$(LIBFT):
+	$(MAKE) -C $(LIBFT_DIR)
+
 # Executable compilation
-$(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+$(NAME): $(OBJ) $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME)
 
 # Compile .c files into .o files
 %.o: %.c
@@ -35,10 +41,12 @@ $(NAME): $(OBJ)
 # Clean object files
 clean:
 	$(RM) $(OBJ)
+	$(MAKE) -C $(LIBFT_DIR) clean
 
 # Full clean
 fclean: clean
 	$(RM) $(NAME)
+	$(MAKE) -C $(LIBFT_DIR) fclean
 
 # Total recompilation
 re: fclean all
