@@ -11,29 +11,48 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include "operations.h"
 #include <stdlib.h>
 #include <unistd.h>
 
 int	main(int argc, char **argv)
 {
 	int	*values;
-	int	count;
+	int	*a;
+	int	*b;
+	int	na;
+	int	nb;
+	t_strategy	strategy;
 
 	if (argc < 2)
 		return (0);
-	count = argc - 1;
-	values = malloc(count * sizeof(*values));
+	values = malloc((argc - 1) * sizeof(*values));
 	if (values == NULL)
 		return (1);
-	if (!check_input(argc, argv, values))
+	if (!parse_args(argc, argv, values, &strategy))
 	{
 		write(2, "Error\n", 6);
 		free(values);
 		return (1);
 	}
-	/*
-		Stacks A e B.
-	*/
+	na = argc - 1;
+	a = values;
+	b = malloc(na * sizeof(*b));
+	if (b == NULL)
+	{
+		free(values);
+		return (1);
+	}
+	nb = 0;
+	if (strategy == SIMPLE)
+		sort_simple(a, b, &na, &nb);
+	else if (strategy == MEDIUM)
+		sort_medium(a, b, &na, &nb);
+	else if (strategy == COMPLEX)
+		sort_complex(a, b, &na, &nb);
+	else
+		adaptive_sort(a, b, &na, &nb);
+	free(b);
 	free(values);
 	return (0);
 }
