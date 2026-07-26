@@ -21,16 +21,16 @@ typedef enum e_strategy
 	ADAPTIVE
 } t_strategy;
 
-int	check_input(int argc, char **argv, int *values);
-int	parse_args(int argc, char **argv, int *values, t_strategy *strategy);
+int		check_input(int argc, char **argv, int *values);
+int		parse_args(int argc, char **argv, int *values, t_strategy *strategy);
 void	sort_simple(int *a, int *b, int *na, int *nb);
 void	sort_medium(int *a, int *b, int *na, int *nb);
 void	sort_complex(int *a, int *b, int *na, int *nb);
 void	adaptive_sort(int *a, int *b, int *na, int *nb);
-int	find_min_value(int *values, int count);
-int	find_max_value(int *values, int count);
-int	*sorted_copy(int *values, int count);
+int		find_min_value(int *values, int count);
+int		find_max_value(int *values, int count);
+int		*sorted_copy(int *values, int count);
 void	sort_array(int *values, int count);
-int	get_rank(int *sorted, int count, int value);
+int		get_rank(int *sorted, int count, int value);
 
 #endif
