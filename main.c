@@ -17,11 +17,11 @@
 
 int	main(int argc, char **argv)
 {
-	int	*values;
-	int	*a;
-	int	*b;
-	int	sizea;
-	int	sizeb;
+	int			*values;
+	int			*a;
+	int			*b;
+	int			sizea;
+	int			sizeb;
 	t_strategy	strategy;
 
 	if (argc < 2)
