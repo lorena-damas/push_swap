@@ -6,12 +6,11 @@
 /*   By: jotto <jotto@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/25 14:41:29 by jotto             #+#    #+#             */
-/*   Updated: 2026/07/25 14:41:29 by jotto            ###   ########.fr       */
+/*   Updated: 2026/07/26 20:11:54 by jotto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include "operations.h"
 
 static double	compute_disorder(int *a, int count)
 {

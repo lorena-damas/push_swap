@@ -6,12 +6,11 @@
 /*   By: jotto <jotto@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/25 14:41:40 by jotto             #+#    #+#             */
-/*   Updated: 2026/07/25 14:41:40 by jotto            ###   ########.fr       */
+/*   Updated: 2026/07/26 20:12:10 by jotto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include "operations.h"
 
 void	sort_simple(int *a, int *b, int *sizea, int *sizeb)
 {
