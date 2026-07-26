@@ -19,7 +19,7 @@ CFLAGS      = -Wall -Wextra -Werror -I. -I$(LIBFT_DIR)
 
 # Mandatory sources
 SRC         = main.c check_input.c operations.c sort_utils.c sort_simple.c \
-			sort_medium.c sort_complex.c sort_adaptive.c parse.c
+			sort_medium.c sort_complex.c sort_adaptive.c parse_to_array.c
 
 # Objects
 OBJ         = $(SRC:.c=.o)
