@@ -20,8 +20,8 @@ int	main(int argc, char **argv)
 	int	*values;
 	int	*a;
 	int	*b;
-	int	na;
-	int	nb;
+	int	sizea;
+	int	sizeb;
 	t_strategy	strategy;
 
 	if (argc < 2)
@@ -35,23 +35,23 @@ int	main(int argc, char **argv)
 		free(values);
 		return (1);
 	}
-	na = argc - 1;
+	sizea = argc - 1;
 	a = values;
-	b = malloc(na * sizeof(*b));
+	b = malloc(sizea * sizeof(*b));
 	if (b == NULL)
 	{
 		free(values);
 		return (1);
 	}
-	nb = 0;
+	sizeb = 0;
 	if (strategy == SIMPLE)
-		sort_simple(a, b, &na, &nb);
+		sort_simple(a, b, &sizea, &sizeb);
 	else if (strategy == MEDIUM)
-		sort_medium(a, b, &na, &nb);
+		sort_medium(a, b, &sizea, &sizeb);
 	else if (strategy == COMPLEX)
-		sort_complex(a, b, &na, &nb);
+		sort_complex(a, b, &sizea, &sizeb);
 	else
-		adaptive_sort(a, b, &na, &nb);
+		adaptive_sort(a, b, &sizea, &sizeb);
 	free(b);
 	free(values);
 	return (0);
