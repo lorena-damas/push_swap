@@ -6,7 +6,7 @@
 /*   By: jotto <jotto@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/25 14:41:29 by jotto             #+#    #+#             */
-/*   Updated: 2026/07/26 20:11:54 by jotto            ###   ########.fr       */
+/*   Updated: 2026/07/26 21:31:25 by jotto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static double	compute_disorder(int *a, int count)
 	int		total;
 	int		i;
 	int		j;
-    double disorder;
+	double	disorder;
 
 	mistakes = 0;
 	total = 0;
@@ -26,7 +26,7 @@ static double	compute_disorder(int *a, int count)
 	while (i < count)
 	{
 		j = i + 1;
-	    while (j < count)
+		while (j < count)
 		{
 			if (a[i] > a[j])
 				mistakes++;
@@ -37,7 +37,7 @@ static double	compute_disorder(int *a, int count)
 	}
 	if (total == 0)
 		return (0.0);
-    disorder = (double)mistakes / (double)total;
+	disorder = (double)mistakes / (double)total;
 	return (disorder);
 }
 

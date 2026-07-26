@@ -6,7 +6,7 @@
 /*   By: jotto <jotto@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/15 19:11:38 by lordamas          #+#    #+#             */
-/*   Updated: 2026/07/26 20:11:23 by jotto            ###   ########.fr       */
+/*   Updated: 2026/07/26 21:32:35 by jotto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ typedef enum e_strategy
 	MEDIUM,
 	COMPLEX,
 	ADAPTIVE
-} t_strategy;
+}	t_strategy;
 
 int		check_input(int argc, char **argv, int *values);
 int		parse_args(int argc, char **argv, int *values, t_strategy *strategy);
