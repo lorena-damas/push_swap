@@ -28,29 +28,29 @@ void	op_swap(int *values, int count, char aorbstack)
 		write(1, "sb\n", 3);
 }
 
-void	op_push(int *from, int *to, int *nfrom, int *nto, char aorbstack)
+void	op_push(int *srcstack, int *deststack, int *sizesource, int *sizedest, char aorbstack)
 {
 	int	i;
 	int	value;
 
-	if (*nfrom == 0)
+	if (*sizesource == 0)
 		return;
-	value = from[0];
+	value = srcstack[0];
 	i = 0;
-	while (i < *nfrom - 1)
+	while (i < *sizesource - 1)
 	{
-		from[i] = from[i + 1];
+		srcstack[i] = srcstack[i + 1];
 		i++;
 	}
-	(*nfrom)--;
-	i = *nto;
+	(*sizesource)--;
+	i = *sizedest;
 	while (i > 0)
 	{
-		to[i] = to[i - 1];
+		deststack[i] = deststack[i - 1];
 		i--;
 	}
-	to[0] = value;
-	(*nto)++;
+	deststack[0] = value;
+	(*sizedest)++;
 	if (aorbstack == 'a')
 		write(1, "pa\n", 3);
 	else
