@@ -18,6 +18,42 @@ static int	get_strategy(char *arg, t_strategy *strategy)
 
 int	parse_args(int argc, char **argv, int *values, t_strategy *strategy)
 {
-//!!!!!!!!!!!!!!!! UNDER CONSTRUCTION !!!!!!!!!!!!!!!!
+//!!!!!!!!!!!!!!!! UNDER CONSTRUCTION --------- LONGER THAN 25 LINES !!!!!!!!!!!!!!!!
+	char	**copy;
+	int	count;
+	int	i;
+	int	returnvalue;
+
+	*strategy = ADAPTIVE;
+	copy = malloc(argc * sizeof(*copy));
+	if (copy == NULL)
+		return (0);
+	copy[0] = argv[0];
+	count = 1;
+	i = 1;
+	while (i < argc)
+	{
+		if (argv[i][0] == '-' && argv[i][1] == '-')
+		{
+			if (!get_strategy(argv[i], strategy))
+			{
+				free(copy);
+				return (0);
+			}
+		}
+		else
+		{
+			copy[count++] = argv[i];
+		}
+		i++;
+	}
+	if (count == 1)
+	{
+		free(copy);
+		return (0);
+	}
+	returnvalue = check_input(count, copy, values);
+	free(copy);
+	return (returnvalue);
 }
 /*\_*/
