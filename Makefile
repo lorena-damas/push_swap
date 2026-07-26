@@ -6,7 +6,7 @@
 #    By: lordamas <lordamas@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/07/13 14:00:33 by lordamas          #+#    #+#              #
-#    Updated: 2026/07/16 17:18:32 by lordamas         ###   ########.fr        #
+#    Updated: 2026/07/18 17:56:37 by lordamas         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CFLAGS      = -Wall -Wextra -Werror
 RM          = rm -f
 
 # Mandatory sources
-SRC         = main.c check_input.c
+SRC         = main.c check_input.c stack_setup.c
 
 # Objects
 OBJ         = $(SRC:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: lordamas <lordamas@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 13:30:20 by lordamas          #+#    #+#             */
-/*   Updated: 2026/07/16 17:15:24 by lordamas         ###   ########.fr       */
+/*   Updated: 2026/07/18 17:58:16 by lordamas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@
 
 int	main(int argc, char **argv)
 {
-	int	*values;
-	int	count;
+	int		*values;
+	int		count;
+	t_stack	a;
+	t_stack	b;
 
 	if (argc < 2)
 		return (0);
@@ -31,9 +33,8 @@ int	main(int argc, char **argv)
 		free(values);
 		return (1);
 	}
-	/*
-		Stacks A e B.
-	*/
+	init_stack(&a);
+	init_stack(&b);
 	free(values);
 	return (0);
 }
