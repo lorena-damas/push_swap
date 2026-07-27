@@ -6,7 +6,7 @@
 /*   By: lordamas <lordamas@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/26 12:40:51 by jotto             #+#    #+#             */
-/*   Updated: 2026/07/27 08:58:20 by lordamas         ###   ########.fr       */
+/*   Updated: 2026/07/27 18:30:31 by lordamas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,5 @@ int	get_rank(int *sorted, int count, int value)
 			return (i);
 		i++;
 	}
-	return (0); // There is a problem here, because it could return position 0, better -1?
-// it was meant to be catched by the calling function because index 0 is meant to be the program name, but I think we can scrap this function if we don't need it for sort_comolex or sort_medium
+	return (-1);
 }
