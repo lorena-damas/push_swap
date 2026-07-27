@@ -109,4 +109,5 @@ int	get_rank(int *sorted, int count, int value)
 		i++;
 	}
 	return (0); // There is a problem here, because it could return position 0, better -1?
+// it was meant to be catched by the calling function because index 0 is meant to be the program name, but I think we can scrap this function if we don't need it for sort_comolex or sort_medium
 }
