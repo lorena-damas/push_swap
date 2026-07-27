@@ -52,4 +52,4 @@ Sorting Logic - sort_simple
 - repeat until stack a is empty
 - move everything from stack b back to stack a
 
-Found Issue: ./push_swap 123 no output
+Found Issue: ./push_swap 123 no output whon NOT using --simple flag. 

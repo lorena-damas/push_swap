@@ -6,7 +6,7 @@
 /*   By: jotto <jotto@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/26 21:32:59 by jotto             #+#    #+#             */
-/*   Updated: 2026/07/26 21:33:04 by jotto            ###   ########.fr       */
+/*   Updated: 2026/07/27 01:42:03 by jotto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static int	get_strategy(char *arg, t_strategy *strategy)
 int	parse_args(int argc, char **argv, int *values, t_strategy *strategy)
 {
 //!!!!!!!!!!!!!!!! UNDER CONSTRUCTION --------- LONGER THAN 25 LINES !!!!!!!!!!!!!!!!
+
 	char	**copy;
 	int		count;
 	int		i;
