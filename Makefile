@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lordamas <lordamas@student.42berlin.de>    +#+  +:+       +#+         #
+#    By: jotto <jotto@student.42berlin.de>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/07/13 14:00:33 by lordamas          #+#    #+#              #
-#    Updated: 2026/07/27 10:50:19 by lordamas         ###   ########.fr        #
+#    Updated: 2026/07/27 13:18:42 by jotto            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,12 +14,12 @@ NAME        = push_swap
 CC          = cc
 RM          = rm -f
 LIBFT_DIR	= libft
-FTPRINTF_DIR =
+# FTPRINTF_DIR =
 LIBFT		= $(LIBFT_DIR)/libft.a
 CFLAGS      = -Wall -Wextra -Werror -I. -I$(LIBFT_DIR)
 
 # Mandatory sources
-SRC         = main.c check_input.c stack_setup.c operations.c sorting_helpers.c sort_simple.c \
+SRC         = main.c check_input.c operations.c sorting_helpers.c sort_simple.c \
 			sort_medium.c sort_complex.c sort_adaptive.c parse_to_array.c
 
 # Objects

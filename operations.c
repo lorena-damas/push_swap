@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   operations.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lordamas <lordamas@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jotto <jotto@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/25 14:40:59 by jotto             #+#    #+#             */
-/*   Updated: 2026/07/27 10:46:55 by lordamas         ###   ########.fr       */
+/*   Updated: 2026/07/27 13:15:55 by jotto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "operations.h"
+#include "push_swap.h"
 #include <unistd.h>
 
 void	op_swap(int *values, int count, char aorb)
@@ -18,7 +18,6 @@ void	op_swap(int *values, int count, char aorb)
 	int	tmp;
 
 	if (count < 2)
-		return ;
 		return ;
 	tmp = values[0];
 	values[0] = values[1];
@@ -40,14 +39,14 @@ void	op_push(int *srcstack, int *deststack, int **sizes, char aorbstack)
 	i = 0;
 	while (i < *sizes[0] - 1)
 	{
-		src[i] = src[i + 1];
+		srcstack[i] = srcstack[i + 1];
 		i++;
 	}
 	(*sizes[0])--;
 	i = *sizes[1];
 	while (i > 0)
 	{
-		dest[i] = dest[i - 1];
+		deststack[i] = deststack[i - 1];
 		i--;
 	}
 	deststack[0] = value;
@@ -66,7 +65,6 @@ void	op_rotate(int *values, int count, char aorb)
 	int	first;
 
 	if (count < 2)
-		return ;
 		return ;
 	first = values[0];
 	i = 0;
@@ -88,7 +86,6 @@ void	op_reverse(int *values, int count, char aorb)
 	int	last;
 
 	if (count < 2)
-		return ;
 		return ;
 	last = values[count - 1];
 	i = count - 1;

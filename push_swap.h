@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lordamas <lordamas@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jotto <jotto@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/15 19:11:38 by lordamas          #+#    #+#             */
-/*   Updated: 2026/07/27 10:47:21 by lordamas         ###   ########.fr       */
+/*   Updated: 2026/07/27 13:12:00 by jotto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	sort_array(int *values, int count);
 int		get_rank(int *sorted, int count, int value);
 //Operation functions
 void	op_swap(int *values, int count, char aob);
-void	op_push(int *src, int *dest, int *sizesrc, int *sizedest, char aob);
+void	op_push(int *srcstack, int *deststack, int **sizes, char aorbstack);
 void	op_rotate(int *values, int count, char aob);
 void	op_reverse(int *values, int count, char aob);
 
