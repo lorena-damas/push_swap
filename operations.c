@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   operations.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jotto <jotto@student.42berlin.de>          +#+  +:+       +#+        */
+/*   By: lordamas <lordamas@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/25 14:40:59 by jotto             #+#    #+#             */
-/*   Updated: 2026/07/25 14:40:59 by jotto            ###   ########.fr       */
+/*   Updated: 2026/07/27 08:44:31 by lordamas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "operations.h"
 #include <unistd.h>
 
 void	op_swap(int *values, int count, char aorbstack)
@@ -18,7 +18,7 @@ void	op_swap(int *values, int count, char aorbstack)
 	int	tmp;
 
 	if (count < 2)
-		return;
+		return ;
 	tmp = values[0];
 	values[0] = values[1];
 	values[1] = tmp;
@@ -28,34 +28,36 @@ void	op_swap(int *values, int count, char aorbstack)
 		write(1, "sb\n", 3);
 }
 
-void	op_push(int *srcstack, int *deststack, int *sizesource, int *sizedest, char aorbstack)
+void	op_push(int *srcstack, int *deststack, int **sizes, char aorbstack)
 {
 	int	i;
 	int	value;
 
-	if (*sizesource == 0)
-		return;
+	if (*sizes[0] == 0)
+		return ;
 	value = srcstack[0];
 	i = 0;
-	while (i < *sizesource - 1)
+	while (i < *sizes[0] - 1)
 	{
 		srcstack[i] = srcstack[i + 1];
 		i++;
 	}
-	(*sizesource)--;
-	i = *sizedest;
+	(*sizes[0])--;
+	i = *sizes[1];
 	while (i > 0)
 	{
 		deststack[i] = deststack[i - 1];
 		i--;
 	}
 	deststack[0] = value;
-	(*sizedest)++;
+	(*sizes[1])++;
 	if (aorbstack == 'a')
 		write(1, "pa\n", 3);
 	else
 		write(1, "pb\n", 3);
 }
+//sizes[0] == sizesource
+//sizes[1] == sizedest
 
 void	op_rotate(int *values, int count, char aorbstack)
 {
@@ -63,7 +65,7 @@ void	op_rotate(int *values, int count, char aorbstack)
 	int	first;
 
 	if (count < 2)
-		return;
+		return ;
 	first = values[0];
 	i = 0;
 	while (i < count - 1)
@@ -84,7 +86,7 @@ void	op_reverse(int *values, int count, char aorbstack)
 	int	last;
 
 	if (count < 2)
-		return;
+		return ;
 	last = values[count - 1];
 	i = count - 1;
 	while (i > 0)

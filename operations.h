@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operations.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jotto <jotto@student.42berlin.de>          +#+  +:+       +#+        */
+/*   By: lordamas <lordamas@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/25 14:41:12 by jotto             #+#    #+#             */
-/*   Updated: 2026/07/25 14:41:12 by jotto            ###   ########.fr       */
+/*   Updated: 2026/07/27 07:31:01 by lordamas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 # define OPERATIONS_H
 
 void	op_swap(int *values, int count, char id);
-void	op_push(int *from, int *to, int *nfrom, int *nto, char id);
+void	op_push(int *srcstack, int *deststack, int **sizes,
+			char aorbstack);
 void	op_rotate(int *values, int count, char id);
 void	op_reverse(int *values, int count, char id);
 
