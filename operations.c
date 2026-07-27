@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   operations.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jotto <jotto@student.42berlin.de>          +#+  +:+       +#+        */
+/*   By: lordamas <lordamas@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/25 14:40:59 by jotto             #+#    #+#             */
-/*   Updated: 2026/07/27 09:43:22 by jotto            ###   ########.fr       */
+/*   Updated: 2026/07/27 10:46:55 by lordamas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "operations.h"
 #include <unistd.h>
 
 void	op_swap(int *values, int count, char aorb)
@@ -18,6 +18,7 @@ void	op_swap(int *values, int count, char aorb)
 	int	tmp;
 
 	if (count < 2)
+		return ;
 		return ;
 	tmp = values[0];
 	values[0] = values[1];
@@ -28,34 +29,36 @@ void	op_swap(int *values, int count, char aorb)
 		write(1, "sb\n", 3);
 }
 
-void	op_push(int *src, int *dest, int *sizesrc, int *sizedest, char aorb)
+void	op_push(int *srcstack, int *deststack, int **sizes, char aorbstack)
 {
 	int	i;
 	int	value;
 
-	if (*sizesrc == 0)
+	if (*sizes[0] == 0)
 		return ;
-	value = src[0];
+	value = srcstack[0];
 	i = 0;
-	while (i < *sizesrc - 1)
+	while (i < *sizes[0] - 1)
 	{
 		src[i] = src[i + 1];
 		i++;
 	}
-	*sizesrc -= 1;
-	i = *sizedest;
+	(*sizes[0])--;
+	i = *sizes[1];
 	while (i > 0)
 	{
 		dest[i] = dest[i - 1];
 		i--;
 	}
-	dest[0] = value;
-	*sizedest += 1;
-	if (aorb == 'a')
+	deststack[0] = value;
+	(*sizes[1])++;
+	if (aorbstack == 'a')
 		write(1, "pa\n", 3);
 	else
 		write(1, "pb\n", 3);
 }
+//sizes[0] == sizesource
+//sizes[1] == sizedest
 
 void	op_rotate(int *values, int count, char aorb)
 {
@@ -63,6 +66,7 @@ void	op_rotate(int *values, int count, char aorb)
 	int	first;
 
 	if (count < 2)
+		return ;
 		return ;
 	first = values[0];
 	i = 0;
@@ -84,6 +88,7 @@ void	op_reverse(int *values, int count, char aorb)
 	int	last;
 
 	if (count < 2)
+		return ;
 		return ;
 	last = values[count - 1];
 	i = count - 1;
