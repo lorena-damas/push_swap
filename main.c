@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jotto <jotto@student.42berlin.de>          +#+  +:+       +#+        */
+/*   By: lordamas <lordamas@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 13:30:20 by lordamas          #+#    #+#             */
-/*   Updated: 2026/07/27 13:09:11 by jotto            ###   ########.fr       */
+/*   Updated: 2026/07/27 14:00:27 by lordamas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,26 @@ static int	prepare_values(int argc, char **argv, int **values,
 	return (sizea);
 }
 
+static int	is_sorted(int *a, int sizea)
+{
+	int	i;
+
+	i = 0;
+	while (i < sizea - 1)
+	{
+		if (a[i] > a[i + 1])
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 static void	run_sort(t_strategy strategy, int *a, int *b, int sizea)
 {
 	int	sizeb;
 
+	if (is_sorted(a, sizea))
+		return ;
 	sizeb = 0;
 	if (strategy == SIMPLE)
 		sort_simple(a, b, &sizea, &sizeb);
