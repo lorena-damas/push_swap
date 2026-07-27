@@ -6,12 +6,11 @@
 /*   By: lordamas <lordamas@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/25 14:41:40 by jotto             #+#    #+#             */
-/*   Updated: 2026/07/27 08:44:24 by lordamas         ###   ########.fr       */
+/*   Updated: 2026/07/27 10:49:58 by lordamas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include "operations.h"
 
 static void	move_min_to_top(int *a, int sizea)
 {

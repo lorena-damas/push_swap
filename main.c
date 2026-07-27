@@ -6,12 +6,12 @@
 /*   By: lordamas <lordamas@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 13:30:20 by lordamas          #+#    #+#             */
-/*   Updated: 2026/07/27 07:19:10 by lordamas         ###   ########.fr       */
+/*   Updated: 2026/07/27 10:44:09 by lordamas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "push_swap.h"
-#include "operations.h"
 #include <stdlib.h>
 #include <unistd.h>
 

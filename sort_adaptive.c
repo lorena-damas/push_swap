@@ -6,7 +6,7 @@
 /*   By: lordamas <lordamas@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/25 14:41:29 by jotto             #+#    #+#             */
-/*   Updated: 2026/07/27 08:49:00 by lordamas         ###   ########.fr       */
+/*   Updated: 2026/07/27 10:48:09 by lordamas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static double	compute_disorder(int *a, int count)
 	}
 	if (total == 0)
 		return (0.0);
-	disorder = ((double)mistakes / (double)total);
+	disorder = (double)mistakes / (double)total;
 	return (disorder);
 }
 

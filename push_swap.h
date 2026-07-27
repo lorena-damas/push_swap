@@ -6,7 +6,7 @@
 /*   By: lordamas <lordamas@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/15 19:11:38 by lordamas          #+#    #+#             */
-/*   Updated: 2026/07/26 14:22:39 by lordamas         ###   ########.fr       */
+/*   Updated: 2026/07/27 10:47:21 by lordamas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ typedef enum e_strategy
 	MEDIUM,
 	COMPLEX,
 	ADAPTIVE
-} t_strategy;
+}	t_strategy;
 
 int		check_input(int argc, char **argv, int *values);
 int		parse_args(int argc, char **argv, int *values, t_strategy *strategy);
@@ -32,5 +32,10 @@ int		find_max_value(int *values, int count);
 int		*sorted_copy(int *values, int count);
 void	sort_array(int *values, int count);
 int		get_rank(int *sorted, int count, int value);
+//Operation functions
+void	op_swap(int *values, int count, char aob);
+void	op_push(int *src, int *dest, int *sizesrc, int *sizedest, char aob);
+void	op_rotate(int *values, int count, char aob);
+void	op_reverse(int *values, int count, char aob);
 
 #endif
