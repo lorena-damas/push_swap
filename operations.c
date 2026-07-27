@@ -42,7 +42,7 @@ void	op_push(int *src, int *dest, int *sizesrc, int *sizedest, char aorb)
 		src[i] = src[i + 1];
 		i++;
 	}
-	(*sizesrc)--;
+	*sizesrc -= 1;
 	i = *sizedest;
 	while (i > 0)
 	{
@@ -50,7 +50,7 @@ void	op_push(int *src, int *dest, int *sizesrc, int *sizedest, char aorb)
 		i--;
 	}
 	dest[0] = value;
-	(*sizedest)++;
+	*sizedest += 1;
 	if (aorb == 'a')
 		write(1, "pa\n", 3);
 	else
