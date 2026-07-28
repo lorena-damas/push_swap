@@ -6,12 +6,11 @@
 /*   By: lordamas <lordamas@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/25 14:41:35 by jotto             #+#    #+#             */
-/*   Updated: 2026/07/27 17:58:51 by lordamas         ###   ########.fr       */
+/*   Updated: 2026/07/27 19:15:35 by lordamas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdlib.h>
 
 static int	get_chunk_size(int count)
 {
@@ -21,31 +20,6 @@ static int	get_chunk_size(int count)
 	while ((chunks + 1) * (chunks + 1) <= count)
 		chunks++;
 	return ((count + chunks - 1) / chunks);
-}
-
-static int	replace_with_ranks(int *a, int sizea)
-{
-	int	*sorted;
-	int	i;
-	int	rank;
-
-	sorted = sorted_copy(a, sizea);
-	if (sorted == NULL)
-		return (0);
-	i = 0;
-	while (i < sizea)
-	{
-		rank = get_rank(sorted, sizea, a[i]);
-		if (rank == -1)
-		{
-			free (sorted);
-			return (0);
-		}
-		a[i] = rank;
-		i++;
-	}
-	free (sorted);
-	return (1);
 }
 
 static void	push_chunks(int *a, int *b, int *sizea, int *sizeb)
