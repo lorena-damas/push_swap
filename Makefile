@@ -3,7 +3,7 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jotto <jotto@student.42berlin.de>          +#+  +:+       +#+         #
+#    By: lordamas <lordamas@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/07/13 14:00:33 by lordamas          #+#    #+#              #
 #    Updated: 2026/07/27 14:37:01 by jotto            ###   ########.fr        #
@@ -22,7 +22,7 @@ CFLAGS      = -Wall -Wextra -Werror -I. -I$(LIBFT_DIR) -I$(PRINTF_DIR)
 
 # Mandatory sources
 SRC         = main.c check_input.c operations.c sorting_helpers.c sort_simple.c \
-			sort_medium.c sort_complex.c sort_adaptive.c parse_to_array.c
+			sort_medium.c sort_complex.c sort_adaptive.c parse_to_array.c rank_helpers.c
 
 # Objects
 OBJ         = $(SRC:.c=.o)
