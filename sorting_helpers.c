@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sorting_helpers.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lordamas <lordamas@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jotto <jotto@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/26 12:40:51 by jotto             #+#    #+#             */
-/*   Updated: 2026/07/27 18:30:31 by lordamas         ###   ########.fr       */
+/*   Updated: 2026/07/30 16:08:36 by jotto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void	sort_array(int *values, int count)
 		i++;
 	}
 }
+
 //*********better move the following function to rank_helpers ************
 int	get_rank(int *sorted, int count, int value)
 {

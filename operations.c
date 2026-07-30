@@ -6,7 +6,7 @@
 /*   By: jotto <jotto@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/25 14:40:59 by jotto             #+#    #+#             */
-/*   Updated: 2026/07/27 13:15:55 by jotto            ###   ########.fr       */
+/*   Updated: 2026/07/30 16:57:36 by jotto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,12 @@ void	op_swap(int *values, int count, char aorb)
 	values[1] = tmp;
 	if (aorb == 'a')
 		write(1, "sa\n", 3);
+		//if (t_bench.bench_active)         !!!!EXAMPLE!!!!
+		//	t_bench.sa++;
 	else
 		write(1, "sb\n", 3);
+		//if (t_bench.bench_active)         !!!!EXAMPLE!!!!
+		//	t_bench.sb++;
 }
 
 void	op_push(int *srcstack, int *deststack, int **sizes, char aorbstack)

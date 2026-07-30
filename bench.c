@@ -6,7 +6,7 @@
 /*   By: jotto <jotto@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/28 15:02:29 by jotto             #+#    #+#             */
-/*   Updated: 2026/07/30 13:57:44 by jotto            ###   ########.fr       */
+/*   Updated: 2026/07/30 16:57:36 by jotto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,91 +15,62 @@
 #include "ft_printf.h"
 #include <stdlib.h>
 
-static	t_bench	t_bench;
-static	int	t_bench.bench_active = 0;
-
-
-
-
-void	bench_enable(void)
+static void	print_strategy(t_strategy strat)
 {
-	ft_bzero(&t_bench, sizeof(t_bench));
-	t_bench.bench_active = 1;
+	ft_putstr_fd("[bench] strategy:\t", 2);
+	if (strat == SIMPLE)
+		ft_putstr_fd("Simple / O(n^2)\n", 2);
+	else if (strat == MEDIUM)
+		ft_putstr_fd("Medium / O(n log n)\n", 2);
+	else if (strat == COMPLEX)
+		ft_putstr_fd("Complex / O(n log n)\n", 2);
+	else
+		ft_putstr_fd("Adaptive / O(n\u221An)\n", 2);
 }
 
-void	bench_disable(void)
+static void	print_disorder(double disorder)
 {
-	t_bench.bench_active = 0;
+	ft_putstr_fd("[bench] disorder:\t", 2);
+	ft_putnbr_fd(disorder, 2);
+	ft_putstr_fd("%\n", 2);
 }
 
-void	bench_record(const char *op)
+static void	print_op_count(t_bench ops_count)
 {
-	if (!t_bench.bench_active || op == NULL)
-		return ;
-	if (ft_strncmp(op, "sa\n", 3) == 0)
-		t_bench.sa++;
-	else if (ft_strncmp(op, "sb\n", 3) == 0)
-		t_bench.sb++;
-	else if (ft_strncmp(op, "ss\n", 3) == 0)
-		t_bench.ss++;
-	else if (ft_strncmp(op, "pa\n", 3) == 0)
-		t_bench.pa++;
-	else if (ft_strncmp(op, "pb\n", 3) == 0)
-		t_bench.pb++;
-	else if (ft_strncmp(op, "ra\n", 3) == 0)
-		t_bench.ra++;
-	else if (ft_strncmp(op, "rb\n", 3) == 0)
-		t_bench.rb++;
-	else if (ft_strncmp(op, "rr\n", 3) == 0)
-		t_bench.rr++;
-	else if (ft_strncmp(op, "rra\n", 4) == 0)
-		t_bench.rra++;
-	else if (ft_strncmp(op, "rrb\n", 4) == 0)
-		t_bench.rrb++;
-	else if (ft_strncmp(op, "rrr\n", 4) == 0)
-		t_bench.rrr++;
-	t_bench.total_ops++;
+	ft_putstr_fd("[bench] total_ops:\t", 2);
+	ft_putnbr_fd(t_bench.total_ops, 2);
+	ft_putstr_fd("\n", 2);
+	ft_putstr_fd("[bench] sa:\t", 2);
+	ft_putnbr_fd(t_bench.sa, 2);
+	ft_putstr_fd("\tsb:\t", 2);
+	ft_putnbr_fd(t_bench.sb, 2);
+	ft_putstr_fd("\tss:\t", 2);
+	ft_putnbr_fd(t_bench.ss, 2);
+	ft_putstr_fd("\tpa:\t", 2);
+	ft_putnbr_fd(t_bench.pa, 2);
+	ft_putstr_fd("\tpb:\t", 2);
+	ft_putnbr_fd(t_bench.pb, 2);
+	ft_putstr_fd("\n", 2);
+	ft_putstr_fd("[bench] ra:\t", 2);
+	ft_putnbr_fd(t_bench.ra, 2);
+	ft_putstr_fd("\trb:\t", 2);
+	ft_putnbr_fd(t_bench.rb, 2);
+	ft_putstr_fd("\trr:\t", 2);
+	ft_putnbr_fd(t_bench.rr, 2);
+	ft_putstr_fd("\trra:\t", 2);
+	ft_putnbr_fd(t_bench.rra, 2);
+	ft_putstr_fd("\trrb:\t", 2);
+	ft_putnbr_fd(t_bench.rrb, 2);
+	ft_putstr_fd("\trrr:\t", 2);
+	ft_putnbr_fd(t_bench.rrr, 2);
+	ft_putstr_fd("\n", 2);
 }
 
-int	bench_run(int argc, char **argv)
+void	bench_print(double disorder, t_strategy strat, t_bench ops_count)
 {
-	int			*values;
-	int			sizea;
-	t_strategy	strat;
-	double		disorder;
-	int			*b;
-	int			sizeb;
+	t_bench *t_bench;
 
-	if (argc < 2)
-		return (0);
-	values = malloc((argc - 1) * sizeof(*values));
-	if (values == NULL)
-		return (1);
-	sizea = bench_extract_args(argc, argv, values, &strat);
-	if (sizea == -1)
-	{
-		free(values);
-		return (1);
-	}
-	if (sizea == 0)
-	{
-		free(values);
-		write(2, "Error\n", 6);
-		return (1);
-	}
-	disorder = compute_disorder(values, sizea);
-	bench_enable();
-	b = malloc(sizea * sizeof(*b));
-	if (b == NULL)
-	{
-		free(values);
-		return (1);
-	}
-	sizeb = 0;
-	run_sort(strat, values, b, &sizea, &sizeb);
-	bench_print(disorder, strat);
-	bench_disable();
-	free(b);
-	free(values);
-	return (0);
+	print_disorder(disorder);
+	print_strategy(strat);
+	print_op_count(ops_count);
 }
