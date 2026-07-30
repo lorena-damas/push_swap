@@ -96,7 +96,7 @@ void	sort_array(int *values, int count)
 		i++;
 	}
 }
-
+//*********better move the following function to rank_helpers ************
 int	get_rank(int *sorted, int count, int value)
 {
 	int	i;
