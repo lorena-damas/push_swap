@@ -6,7 +6,7 @@
 /*   By: jotto <jotto@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/15 19:11:38 by lordamas          #+#    #+#             */
-/*   Updated: 2026/07/30 16:57:36 by jotto            ###   ########.fr       */
+/*   Updated: 2026/07/30 17:57:26 by jotto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,20 @@ typedef enum e_strategy
 
 typedef struct s_bench
 {
-	int	bench_active;
-	int	total_ops;
-	int	sa;
-	int	sb;
-	int	ss;
-	int	pa;
-	int	pb;
-	int	ra;
-	int	rb;
-	int	rr;
-	int	rra;
-	int	rrb;
-	int	rrr;
+	int		bench_active;
+	double	disorder;
+	int		total_ops;
+	int		sa;
+	int		sb;
+	int		ss;
+	int		pa;
+	int		pb;
+	int		ra;
+	int		rb;
+	int		rr;
+	int		rra;
+	int		rrb;
+	int		rrr;
 }	t_bench;
 
 int		check_input(int argc, char **argv, int *values);
@@ -57,6 +58,7 @@ void	op_rotate(int *values, int count, char aob);
 void	op_reverse(int *values, int count, char aob);
 int		replace_with_ranks(int *a, int sizea);
 //Benchmark
+
 
 
 

@@ -6,7 +6,7 @@
 /*   By: jotto <jotto@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/26 12:40:51 by jotto             #+#    #+#             */
-/*   Updated: 2026/07/30 16:08:36 by jotto            ###   ########.fr       */
+/*   Updated: 2026/07/30 17:31:38 by jotto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,19 +95,4 @@ void	sort_array(int *values, int count)
 		}
 		i++;
 	}
-}
-
-//*********better move the following function to rank_helpers ************
-int	get_rank(int *sorted, int count, int value)
-{
-	int	i;
-
-	i = 0;
-	while (i < count)
-	{
-		if (sorted[i] == value)
-			return (i);
-		i++;
-	}
-	return (-1);
 }

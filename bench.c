@@ -6,7 +6,7 @@
 /*   By: jotto <jotto@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/28 15:02:29 by jotto             #+#    #+#             */
-/*   Updated: 2026/07/30 16:57:36 by jotto            ###   ########.fr       */
+/*   Updated: 2026/07/30 17:30:52 by jotto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	print_disorder(double disorder)
 	ft_putstr_fd("[bench] disorder:\t", 2);
 	ft_putnbr_fd(disorder, 2);
 	ft_putstr_fd("%\n", 2);
-}
+} // needs some work to correctly display the frac for disorder( including percentage-sign)
 
 static void	print_op_count(t_bench ops_count)
 {
@@ -73,4 +73,10 @@ void	bench_print(double disorder, t_strategy strat, t_bench ops_count)
 	print_disorder(disorder);
 	print_strategy(strat);
 	print_op_count(ops_count);
+}
+
+int	init_benchmode(double disorder, t_strategy strat, t_bench ops_count)
+{
+	if	t_bench	bench_active = 1;
+	bench_print
 }

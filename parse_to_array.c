@@ -6,7 +6,7 @@
 /*   By: jotto <jotto@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/26 14:42:35 by lordamas          #+#    #+#             */
-/*   Updated: 2026/07/30 16:57:36 by jotto            ###   ########.fr       */
+/*   Updated: 2026/07/30 17:29:05 by jotto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ static int	get_strategy(char *arg, t_strategy *strategy)
 		*strategy = COMPLEX;
 	else if (ft_strncmp(arg, "--adaptive", 11) == 0 && arg[10] == '\0')
 		*strategy = ADAPTIVE;
-	else if (ft_strncmp(arg, "--bench", 8) == 0 && arg[7] == '\0')
-		!!!!!!!!!!!!!!!!!!!!!bench active = 1 !!!!!!!!!!!!!!!!!!!!!!!;
 	else
 		return (0);
 	return (1);

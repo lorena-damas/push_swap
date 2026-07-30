@@ -53,7 +53,8 @@ Sorting Logic - sort_simple
 - move everything from stack b back to stack a
 
 Next steps:
-- Work on the benchmark flags
+- FINISH benchmark flags
+	
 - medium sort
 - complex sort
 - modifications on the main, parse_to_array, check_input

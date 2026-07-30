@@ -6,7 +6,7 @@
 /*   By: jotto <jotto@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/28 15:02:48 by jotto             #+#    #+#             */
-/*   Updated: 2026/07/30 14:01:52 by jotto            ###   ########.fr       */
+/*   Updated: 2026/07/30 17:02:42 by jotto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,20 @@
 
 typedef struct s_bench
 {
-	int	total_ops;
-	int	sa;
-	int	sb;
-	int	ss;
-	int	pa;
-	int	pb;
-	int	ra;
-	int	rb;
-	int	rr;
-	int	rra;
-	int	rrb;
-	int	rrr;
+	double	disorder;
+	int		bench_active;
+	int		total_ops;
+	int		sa;
+	int		sb;
+	int		ss;
+	int		pa;
+	int		pb;
+	int		ra;
+	int		rb;
+	int		rr;
+	int		rra;
+	int		rrb;
+	int		rrr;
 }	t_bench;
 
 void	bench_enable(void);

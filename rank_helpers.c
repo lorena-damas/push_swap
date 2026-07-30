@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rank_helpers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lordamas <lordamas@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jotto <jotto@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/27 19:14:08 by lordamas          #+#    #+#             */
-/*   Updated: 2026/07/27 19:14:50 by lordamas         ###   ########.fr       */
+/*   Updated: 2026/07/30 17:31:30 by jotto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,18 @@ int	replace_with_ranks(int *a, int sizea)
 	}
 	free (sorted);
 	return (1);
+}
+
+int	get_rank(int *sorted, int count, int value)
+{
+	int	i;
+
+	i = 0;
+	while (i < count)
+	{
+		if (sorted[i] == value)
+			return (i);
+		i++;
+	}
+	return (-1);
 }
