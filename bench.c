@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bench.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jotto <jotto@student.42berlin.de>          +#+  +:+       +#+        */
+/*   By: lordamas <lordamas@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/28 15:02:29 by jotto             #+#    #+#             */
-/*   Updated: 2026/07/30 17:30:52 by jotto            ###   ########.fr       */
+/*   Updated: 2026/07/31 07:16:43 by lordamas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,22 @@ static void	print_strategy(t_strategy strat)
 
 static void	print_disorder(double disorder)
 {
+	int	value;
+	int	integer_part;
+	int	decimal_part;
+
 	ft_putstr_fd("[bench] disorder:\t", 2);
-	ft_putnbr_fd(disorder, 2);
-	ft_putstr_fd("%\n", 2);
-} // needs some work to correctly display the frac for disorder( including percentage-sign)
+	value = (int)(disorder * 10000 + 0.5);
+	integer_part = value / 100;
+	decimal_part = value % 100;
+	write(2, "Disorder: ", 10);
+	put_number_fd(integer_part, 2);
+	write(2, ".", 1);
+	if (decimal_part < 10)
+		write(2, "0", 1);
+	put_number_fd(decimal_part, 2);
+	write(2, "%\n", 2);
+}
 
 static void	print_op_count(t_bench ops_count)
 {
