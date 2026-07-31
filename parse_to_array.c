@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_to_array.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jotto <jotto@student.42berlin.de>          +#+  +:+       +#+        */
+/*   By: lordamas <lordamas@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/26 14:42:35 by lordamas          #+#    #+#             */
-/*   Updated: 2026/07/30 17:29:05 by jotto            ###   ########.fr       */
+/*   Updated: 2026/07/31 07:56:17 by lordamas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	get_strategy(char *arg, t_strategy *strategy)
 	return (1);
 }
 
-static int	fill_copy(int argc, char **argv, char **copy, t_strategy *strategy)
+static int	fill_copy(int argc, char **argv, char **copy, t_strategy *strategy, int *bench)
 {
 	int	i;
 	int	count;
@@ -39,7 +39,10 @@ static int	fill_copy(int argc, char **argv, char **copy, t_strategy *strategy)
 	copy[0] = argv[0];
 	while (i < argc)
 	{
-		if (argv[i][0] == '-' && argv[i][1] == '-')
+		if (ft_strncmp(argv[i], "--bench", 8) == 0
+			&& argv[i][7] == '\0')
+			*bench = 1;
+		else if (argv[i][0] == '-' && argv[i][1] == '-')
 		{
 			if (!get_strategy(argv[i], strategy))
 				return (0);
@@ -51,16 +54,18 @@ static int	fill_copy(int argc, char **argv, char **copy, t_strategy *strategy)
 	return (count);
 }
 
-int	parse_args(int argc, char **argv, int *values, t_strategy *strategy)
+int	parse_args(int argc, char **argv, int *values, t_strategy *strategy,
+		int *bench)
 {
 	char	**copy;
 	int		count;
 
 	*strategy = ADAPTIVE;
+	*bench = 0;
 	copy = malloc(argc * sizeof(*copy));
 	if (copy == NULL)
 		return (0);
-	count = fill_copy(argc, argv, copy, strategy);
+	count = fill_copy(argc, argv, copy, strategy, bench);
 	if ((count <= 1) || (!check_input(count, copy, values)))
 	{
 		free(copy);

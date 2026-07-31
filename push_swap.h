@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jotto <jotto@student.42berlin.de>          +#+  +:+       +#+        */
+/*   By: lordamas <lordamas@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/15 19:11:38 by lordamas          #+#    #+#             */
-/*   Updated: 2026/07/30 17:57:26 by jotto            ###   ########.fr       */
+/*   Updated: 2026/07/31 07:50:11 by lordamas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ typedef struct s_bench
 }	t_bench;
 
 int		check_input(int argc, char **argv, int *values);
-int		parse_args(int argc, char **argv, int *values, t_strategy *strategy);
+int		parse_args(int argc, char **argv, int *values,
+			t_strategy *strategy, int *bench);
 void	adaptive_sort(int *a, int *b, int *na, int *nb);
 int		find_min_value(int *values, int count);
 int		find_max_value(int *values, int count);
@@ -58,8 +59,5 @@ void	op_rotate(int *values, int count, char aob);
 void	op_reverse(int *values, int count, char aob);
 int		replace_with_ranks(int *a, int sizea);
 //Benchmark
-
-
-
-
+double	compute_disorder(int *a, int count);
 #endif

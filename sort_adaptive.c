@@ -6,13 +6,13 @@
 /*   By: lordamas <lordamas@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/25 14:41:29 by jotto             #+#    #+#             */
-/*   Updated: 2026/07/27 10:48:09 by lordamas         ###   ########.fr       */
+/*   Updated: 2026/07/31 07:51:50 by lordamas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static double	compute_disorder(int *a, int count)
+double	compute_disorder(int *a, int count)
 {
 	int		mistakes;
 	int		total;

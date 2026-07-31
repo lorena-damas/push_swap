@@ -6,24 +6,25 @@
 /*   By: lordamas <lordamas@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 13:30:20 by lordamas          #+#    #+#             */
-/*   Updated: 2026/07/27 14:00:27 by lordamas         ###   ########.fr       */
+/*   Updated: 2026/07/31 07:50:29 by lordamas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "push_swap.h"
+#include "bench.h"
 #include <stdlib.h>
 #include <unistd.h>
 
 static int	prepare_values(int argc, char **argv, int **values,
-		t_strategy *strategy)
+		t_strategy *strategy, int *bench)
 {
 	int	sizea;
 
 	*values = malloc((argc - 1) * sizeof(**values));
 	if (*values == NULL)
 		return (-1);
-	sizea = parse_args(argc, argv, *values, strategy);
+	sizea = parse_args(argc, argv, *values, strategy, bench);
 	if (sizea == 0)
 	{
 		write(2, "Error\n", 6);
@@ -64,16 +65,44 @@ static void	run_sort(t_strategy strategy, int *a, int *b, int sizea)
 		adaptive_sort(a, b, &sizea, &sizeb);
 }
 
+// int	main(int argc, char **argv)
+// {
+// 	int			*values;
+// 	int			*b;
+// 	int			sizea;
+// 	int			bench;
+// 	t_strategy	strategy;
+
+// 	if (argc < 2)
+// 		return (0);
+// 	sizea = prepare_values(argc, argv, &values, &strategy, &bench);
+// 	if (sizea == -1)
+// 		return (1);
+// 	b = malloc(sizea * sizeof(*b));
+// 	if (b == NULL)
+// 	{
+// 		free(values);
+// 		return (1);
+// 	}
+// 	run_sort(strategy, values, b, sizea);
+// 	free (b);
+// 	free (values);
+// 	return (0);
+// }
+
+
 int	main(int argc, char **argv)
 {
 	int			*values;
 	int			*b;
 	int			sizea;
+	int			bench;
+	double		disorder;
 	t_strategy	strategy;
 
 	if (argc < 2)
 		return (0);
-	sizea = prepare_values(argc, argv, &values, &strategy);
+	sizea = prepare_values(argc, argv, &values, &strategy, &bench);
 	if (sizea == -1)
 		return (1);
 	b = malloc(sizea * sizeof(*b));
@@ -82,7 +111,10 @@ int	main(int argc, char **argv)
 		free(values);
 		return (1);
 	}
+	disorder = compute_disorder(values, sizea);
 	run_sort(strategy, values, b, sizea);
+	if (bench)
+		bench_print(disorder, strategy);
 	free (b);
 	free (values);
 	return (0);

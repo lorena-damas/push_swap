@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bench.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jotto <jotto@student.42berlin.de>          +#+  +:+       +#+        */
+/*   By: lordamas <lordamas@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/28 15:02:48 by jotto             #+#    #+#             */
-/*   Updated: 2026/07/30 17:02:42 by jotto            ###   ########.fr       */
+/*   Updated: 2026/07/31 07:51:20 by lordamas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,23 @@
 
 # include "push_swap.h"
 
-typedef struct s_bench
-{
-	double	disorder;
-	int		bench_active;
-	int		total_ops;
-	int		sa;
-	int		sb;
-	int		ss;
-	int		pa;
-	int		pb;
-	int		ra;
-	int		rb;
-	int		rr;
-	int		rra;
-	int		rrb;
-	int		rrr;
-}	t_bench;
+// typedef struct s_bench
+// {
+// 	double	disorder;
+// 	int		bench_active;
+// 	int		total_ops;
+// 	int		sa;
+// 	int		sb;
+// 	int		ss;
+// 	int		pa;
+// 	int		pb;
+// 	int		ra;
+// 	int		rb;
+// 	int		rr;
+// 	int		rra;
+// 	int		rrb;
+// 	int		rrr;
+// }	t_bench;
 
 void	bench_enable(void);
 void	bench_disable(void);
