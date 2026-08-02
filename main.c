@@ -6,10 +6,9 @@
 /*   By: jotto <jotto@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 13:30:20 by lordamas          #+#    #+#             */
-/*   Updated: 2026/08/02 22:07:32 by jotto            ###   ########.fr       */
+/*   Updated: 2026/08/02 22:20:19 by jotto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "push_swap.h"
 #include <stdlib.h>
