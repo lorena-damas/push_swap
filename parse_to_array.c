@@ -6,7 +6,7 @@
 /*   By: jotto <jotto@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/26 14:42:35 by lordamas          #+#    #+#             */
-/*   Updated: 2026/08/02 22:21:12 by jotto            ###   ########.fr       */
+/*   Updated: 2026/08/03 00:08:24 by jotto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft.h"
 #include <stdlib.h>
 
-static int	get_strategy(char *arg, t_strat *strategy)
+static int	get_strategy(char *arg, t_strategy *strategy)
 {
 	if (ft_strncmp(arg, "--simple", 9) == 0 && arg[8] == '\0')
 		*strategy = SIMPLE;
@@ -29,7 +29,7 @@ static int	get_strategy(char *arg, t_strat *strategy)
 	return (1);
 }
 
-static int	fill_copy(int argc, char **argv, char **copy, t_strat *strategy, int *bench)
+static int	fill_copy(int argc, char **argv, char **copy, t_strategy *strategy, int *bench)
 {
 	int	i;
 	int	count;
@@ -44,7 +44,7 @@ static int	fill_copy(int argc, char **argv, char **copy, t_strat *strategy, int 
 			*bench = 1;
 		else if (argv[i][0] == '-' && argv[i][1] == '-')
 		{
-			if (!get_strat(argv[i], strategy))
+			if (!get_strategy(argv[i], strategy))
 				return (0);
 		}
 		else
@@ -54,7 +54,7 @@ static int	fill_copy(int argc, char **argv, char **copy, t_strat *strategy, int 
 	return (count);
 }
 
-int	parse_args(int argc, char **argv, int *values, t_strat *strategy,
+int	parse_args(int argc, char **argv, int *values, t_strategy *strategy,
 		int *bench)
 {
 	char	**copy;
