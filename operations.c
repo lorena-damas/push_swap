@@ -6,101 +6,95 @@
 /*   By: jotto <jotto@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/25 14:40:59 by jotto             #+#    #+#             */
-/*   Updated: 2026/07/30 17:11:10 by jotto            ###   ########.fr       */
+/*   Updated: 2026/08/02 19:51:38 by jotto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <unistd.h>
+#include "libft.h"
 
-void	op_swap(int *values, int count, char aorb)
+static void	get_stack(t_data *data, char a_or_b, int **stack, int *size)
 {
+	if (a_or_b == 'a')
+	{
+		*stack = data->a;
+		*size = data->sizea;
+	}
+	else
+	{
+		*stack = data->b;
+		*size = data->sizeb;
+	}
+}
+
+static void	process_op(t_data *data, char *a_or_b, t_op op)
+{
+	ft_putstr_fd(a_or_b, 1);
+	bench_record(&data->bench, op);
+}
+
+void	op_swap(t_data *data, char a_or_b)
+{
+	int	*stack;
+	int	size;
 	int	tmp;
 
-	if (count < 2)
+	get_stack(data, a_or_b, &stack, &size);
+	if (size < 2)
 		return ;
-	tmp = values[0];
-	values[0] = values[1];
-	values[1] = tmp;
-	if (aorb == 'a')
-		write(1, "sa\n", 3);
-		//if (t_bench.bench_active == 1)         !!!!EXAMPLE!!!!
-		//	t_bench.sa++;
+	tmp = stack[0];
+	stack[0] = stack[1];
+	stack[1] = tmp;
+	if (a_or_b == 'a')
+		process_op(data, "sa\n", OP_SA);
 	else
-		write(1, "sb\n", 3);
-		//if (t_bench.bench_active == 1)         !!!!EXAMPLE!!!!
-		//	t_bench.sb++;
+		process_op(data, "sb\n", OP_SB);
 }
 
-void	op_push(int *srcstack, int *deststack, int **sizes, char aorbstack)
+void	op_rotate(t_data *data, char a_or_b)
 {
-	int	i;
-	int	value;
-
-	if (*sizes[0] == 0)
-		return ;
-	value = srcstack[0];
-	i = 0;
-	while (i < *sizes[0] - 1)
-	{
-		srcstack[i] = srcstack[i + 1];
-		i++;
-	}
-	(*sizes[0])--;
-	i = *sizes[1];
-	while (i > 0)
-	{
-		deststack[i] = deststack[i - 1];
-		i--;
-	}
-	deststack[0] = value;
-	(*sizes[1])++;
-	if (aorbstack == 'a')
-		write(1, "pa\n", 3);
-	else
-		write(1, "pb\n", 3);
-}
-//sizes[0] == sizesource
-//sizes[1] == sizedest
-
-void	op_rotate(int *values, int count, char aorb)
-{
-	int	i;
+	int	*stack;
+	int	size;
 	int	first;
+	int	i;
 
-	if (count < 2)
+	get_stack(data, a_or_b, &stack, &size);
+	if (size < 2)
 		return ;
-	first = values[0];
+	first = stack[0];
 	i = 0;
-	while (i < count - 1)
+	while (i < size - 1)
 	{
-		values[i] = values[i + 1];
+		stack[i] = stack[i + 1];
 		i++;
 	}
-	values[count - 1] = first;
-	if (aorb == 'a')
-		write(1, "ra\n", 3);
+	stack[size - 1] = first;
+	if (a_or_b == 'a')
+		process_op(data, "ra\n", OP_RA);
 	else
-		write(1, "rb\n", 3);
+		process_op(data, "rb\n", OP_RB);
 }
 
-void	op_reverse(int *values, int count, char aorb)
+void	op_reverse(t_data *data, char a_or_b)
 {
-	int	i;
+	int	*stack;
+	int	size;
 	int	last;
+	int	i;
 
-	if (count < 2)
+	get_stack(data, a_or_b, &stack, &size);
+	if (size < 2)
 		return ;
-	last = values[count - 1];
-	i = count - 1;
+	last = stack[size - 1];
+	i = size - 1;
 	while (i > 0)
 	{
-		values[i] = values[i - 1];
+		stack[i] = stack[i - 1];
 		i--;
 	}
-	values[0] = last;
-	if (aorb == 'a')
-		write(1, "rra\n", 4);
+	stack[0] = last;
+	if (a_or_b == 'a')
+		process_op(data, "rra\n", OP_RRA);
 	else
-		write(1, "rrb\n", 4);
+		process_op(data, "rrb\n", OP_RRB);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lordamas <lordamas@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jotto <jotto@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 13:30:20 by lordamas          #+#    #+#             */
-/*   Updated: 2026/07/31 07:50:29 by lordamas         ###   ########.fr       */
+/*   Updated: 2026/08/02 19:46:11 by jotto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,30 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-static int	prepare_values(int argc, char **argv, int **values,
-		t_strategy *strategy, int *bench)
+static int	prepare_data(int argc, char **argv, t_data *data,
+		t_strategy *strategy)
 {
-	int	sizea;
+	int	bench;
 
-	*values = malloc((argc - 1) * sizeof(**values));
-	if (*values == NULL)
-		return (-1);
-	sizea = parse_args(argc, argv, *values, strategy, bench);
-	if (sizea == 0)
+	data->a = malloc((argc - 1) * sizeof(*data->a));
+	if (data->a == NULL)
+		return (0);
+	data->sizea = parse_args(argc, argv, data->a, strategy, &bench);
+	if (data->sizea == 0)
 	{
 		write(2, "Error\n", 6);
-		free(*values);
-		return (-1);
+		free(data->a);
+		return (0);
 	}
-	return (sizea);
+	data->b = malloc(data->sizea * sizeof(*data->b));
+	if (data->b == NULL)
+	{
+		free(data->a);
+		return (0);
+	}
+	data->sizeb = 0;
+	bench_init(&data->bench, bench);
+	return (1);
 }
 
 static int	is_sorted(int *a, int sizea)
@@ -48,74 +56,41 @@ static int	is_sorted(int *a, int sizea)
 	return (1);
 }
 
-static void	run_sort(t_strategy strategy, int *a, int *b, int sizea)
+static void	run_sort(t_strategy strategy, t_data *data)
 {
-	int	sizeb;
-
-	if (is_sorted(a, sizea))
+	if (is_sorted(data->a, data->sizea))
 		return ;
-	sizeb = 0;
 	if (strategy == SIMPLE)
-		sort_simple(a, b, &sizea, &sizeb);
+		sort_simple(data);
 	else if (strategy == MEDIUM)
-		sort_medium(a, b, &sizea, &sizeb);
-	else if (strategy == COMPLEX)
-		sort_complex(a, b, &sizea, &sizeb);
+		sort_medium(data);
 	else
-		adaptive_sort(a, b, &sizea, &sizeb);
+		sort_complex(data);
 }
 
-// int	main(int argc, char **argv)
-// {
-// 	int			*values;
-// 	int			*b;
-// 	int			sizea;
-// 	int			bench;
-// 	t_strategy	strategy;
-
-// 	if (argc < 2)
-// 		return (0);
-// 	sizea = prepare_values(argc, argv, &values, &strategy, &bench);
-// 	if (sizea == -1)
-// 		return (1);
-// 	b = malloc(sizea * sizeof(*b));
-// 	if (b == NULL)
-// 	{
-// 		free(values);
-// 		return (1);
-// 	}
-// 	run_sort(strategy, values, b, sizea);
-// 	free (b);
-// 	free (values);
-// 	return (0);
-// }
-
+static void	free_data(t_data *data)
+{
+	free(data->b);
+	free(data->a);
+}
 
 int	main(int argc, char **argv)
 {
-	int			*values;
-	int			*b;
-	int			sizea;
-	int			bench;
-	double		disorder;
+	t_data		data;
 	t_strategy	strategy;
+	t_strategy	sort_strategy;
+	double		disorder;
 
 	if (argc < 2)
 		return (0);
-	sizea = prepare_values(argc, argv, &values, &strategy, &bench);
-	if (sizea == -1)
+	if (!prepare_data(argc, argv, &data, &strategy))
 		return (1);
-	b = malloc(sizea * sizeof(*b));
-	if (b == NULL)
-	{
-		free(values);
-		return (1);
-	}
-	disorder = compute_disorder(values, sizea);
-	run_sort(strategy, values, b, sizea);
-	if (bench)
-		bench_print(disorder, strategy);
-	free (b);
-	free (values);
+	disorder = compute_disorder(data.a, data.sizea);
+	sort_strategy = strategy;
+	if (sort_strategy == ADAPTIVE)
+		sort_strategy = adaptive_strategy(disorder);
+	run_sort(sort_strategy, &data);
+	bench_print(disorder, strategy, &data.bench);
+	free_data(&data);
 	return (0);
 }

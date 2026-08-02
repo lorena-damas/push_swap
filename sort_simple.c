@@ -3,45 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   sort_simple.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lordamas <lordamas@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jotto <jotto@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/25 14:41:40 by jotto             #+#    #+#             */
-/*   Updated: 2026/07/27 10:49:58 by lordamas         ###   ########.fr       */
+/*   Updated: 2026/08/02 20:01:01 by jotto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	move_min_to_top(int *a, int sizea)
+static void	move_min_to_top(t_data *data)
 {
 	int	index;
 
-	index = find_min_value(a, sizea);
-	if (index <= sizea / 2)
+	index = find_min_value(data->a, data->sizea);
+	if (index <= data->sizea / 2)
 	{
 		while (index-- > 0)
-			op_rotate(a, sizea, 'a');
+			op_rotate(data, 'a');
 	}
 	else
 	{
-		while (index++ < sizea)
-			op_reverse(a, sizea, 'a');
+		while (index++ < data->sizea)
+			op_reverse(data, 'a');
 	}
 }
 
-void	sort_simple(int *a, int *b, int *sizea, int *sizeb)
+void	sort_simple(t_data *data)
 {
-	int	*sizes[2];
-
-	sizes[0] = sizea;
-	sizes[1] = sizeb;
-	while (*sizea > 0)
+	while (data->sizea > 0)
 	{
-		move_min_to_top(a, *sizea);
-		op_push(a, b, sizes, 'b');
+		move_min_to_top(data);
+		op_push(data, 'b');
 	}
-	sizes[0] = sizeb;
-	sizes[1] = sizea;
-	while (*sizeb > 0)
-		op_push(b, a, sizes, 'a');
+	while (data->sizeb > 0)
+		op_push(data, 'a');
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lordamas <lordamas@student.42berlin.de>    +#+  +:+       +#+         #
+#    By: jotto <jotto@student.42berlin.de>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/07/13 14:00:33 by lordamas          #+#    #+#              #
-#    Updated: 2026/07/31 08:01:23 by lordamas         ###   ########.fr        #
+#    Updated: 2026/08/02 19:47:02 by jotto            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ CFLAGS      = -Wall -Wextra -Werror -I. -I$(LIBFT_DIR) -I$(PRINTF_DIR)
 # Mandatory sources
 SRC         = main.c check_input.c operations.c sorting_helpers.c sort_simple.c \
 			sort_medium.c sort_complex.c sort_adaptive.c parse_to_array.c rank_helpers.c \
-			bench.c
+			bench.c bench_print.c operations_push.c
 
 # Objects
 OBJ         = $(SRC:.c=.o)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_complex.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lordamas <lordamas@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jotto <jotto@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/25 14:42:27 by jotto             #+#    #+#             */
-/*   Updated: 2026/07/27 19:58:10 by lordamas         ###   ########.fr       */
+/*   Updated: 2026/08/02 19:59:07 by jotto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,47 +39,40 @@ static int	get_max_bits(int sizea)
 // 1 >> 1 = 0
 // bits == 7
 
-static void	sort_one_bit(int *a, int *b, int **sizes, int bit)
+static void	sort_one_bit(t_data *data, int bit)
 {
 	int	count;
 
-	count = *sizes[0];
+	count = data->sizea;
 	while (count > 0)
 	{
-		if (((a[0] >> bit) & 1) == 0)
-			op_push(a, b, sizes, 'b');
+		if (((data->a[0] >> bit) & 1) == 0)
+			op_push(data, 'b');
 		else
-			op_rotate(a, *sizes[0], 'a');
+			op_rotate(data, 'a');
 		count--;
 	}
 }
 
-static void	return_to_a(int *a, int *b, int **sizes)
+static void	return_to_a(t_data *data)
 {
-	int	*reverse_sizes[2];
-
-	reverse_sizes[0] = sizes[1];
-	reverse_sizes[1] = sizes[0];
-	while (*sizes[1] > 0)
-		op_push(b, a, reverse_sizes, 'a');
+	while (data->sizeb > 0)
+		op_push(data, 'a');
 }
 
-void	sort_complex(int *a, int *b, int *sizea, int *sizeb)
+void	sort_complex(t_data *data)
 {
 	int	bit;
 	int	max_bits;
-	int	*sizes[2];
 
-	if (!replace_with_ranks(a, *sizea))
+	if (!replace_with_ranks(data->a, data->sizea))
 		return ;
-	max_bits = get_max_bits(*sizea);
-	sizes[0] = sizea;
-	sizes[1] = sizeb;
+	max_bits = get_max_bits(data->sizea);
 	bit = 0;
 	while (bit < max_bits)
 	{
-		sort_one_bit(a, b, sizes, bit);
-		return_to_a(a, b, sizes);
+		sort_one_bit(data, bit);
+		return_to_a(data);
 		bit++;
 	}
 }

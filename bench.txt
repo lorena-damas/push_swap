@@ -1,2 +1,0 @@
-[bench] disorder:	40.00%
-[bench] strategy:	Medium / O(n sqrt(n))

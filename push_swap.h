@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lordamas <lordamas@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jotto <jotto@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/15 19:11:38 by lordamas          #+#    #+#             */
-/*   Updated: 2026/07/31 07:50:11 by lordamas         ###   ########.fr       */
+/*   Updated: 2026/08/02 19:54:36 by jotto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,43 +21,56 @@ typedef enum e_strategy
 	ADAPTIVE
 }	t_strategy;
 
+typedef enum e_operations
+{
+	OP_SA,
+	OP_SB,
+	OP_SS,
+	OP_PA,
+	OP_PB,
+	OP_RA,
+	OP_RB,
+	OP_RR,
+	OP_RRA,
+	OP_RRB,
+	OP_RRR,
+	OP_COUNT
+}	t_op;
+
 typedef struct s_bench
 {
-	int		bench_active;
-	double	disorder;
-	int		total_ops;
-	int		sa;
-	int		sb;
-	int		ss;
-	int		pa;
-	int		pb;
-	int		ra;
-	int		rb;
-	int		rr;
-	int		rra;
-	int		rrb;
-	int		rrr;
+	int	enabled;
+	int	total_ops;
+	int	ops[OP_COUNT];
 }	t_bench;
 
-int		check_input(int argc, char **argv, int *values);
-int		parse_args(int argc, char **argv, int *values,
-			t_strategy *strategy, int *bench);
-void	adaptive_sort(int *a, int *b, int *na, int *nb);
-int		find_min_value(int *values, int count);
-int		find_max_value(int *values, int count);
-int		*sorted_copy(int *values, int count);
-void	sort_array(int *values, int count);
-int		get_rank(int *sorted, int count, int value);
-//Sorting strategies
-void	sort_simple(int *a, int *b, int *na, int *nb);
-void	sort_medium(int *a, int *b, int *na, int *nb);
-void	sort_complex(int *a, int *b, int *na, int *nb);
-//Operation functions
-void	op_swap(int *values, int count, char aob);
-void	op_push(int *srcstack, int *deststack, int **sizes, char aorbstack);
-void	op_rotate(int *values, int count, char aob);
-void	op_reverse(int *values, int count, char aob);
-int		replace_with_ranks(int *a, int sizea);
-//Benchmark
-double	compute_disorder(int *a, int count);
+typedef struct s_data
+{
+	int		*a;
+	int		*b;
+	int		sizea;
+	int		sizeb;
+	t_bench	bench;
+}	t_data;
+
+int			check_input(int argc, char **argv, int *values);
+int			parse_args(int argc, char **argv, int *values, t_strategy *strategy, int *bench);
+int			find_min_value(int *values, int count);
+int			find_max_value(int *values, int count);
+int			*sorted_copy(int *values, int count);
+void		sort_array(int *values, int count);
+int			get_rank(int *sorted, int count, int value);
+void		sort_simple(t_data *data);
+void		sort_medium(t_data *data);
+void		sort_complex(t_data *data);
+void		op_swap(t_data *data, char stack);
+void		op_push(t_data *data, char target);
+void		op_rotate(t_data *data, char stack);
+void		op_reverse(t_data *data, char stack);
+int			replace_with_ranks(int *a, int sizea);
+double		compute_disorder(int *a, int count); t_strategy	adaptive_strategy(double disorder);
+void		bench_init(t_bench *bench, int enabled);
+void		bench_record(t_bench *bench, t_op op);
+void		bench_print(double disorder, t_strategy strategy, t_bench *bench);
+
 #endif
