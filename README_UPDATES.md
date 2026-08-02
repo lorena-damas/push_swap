@@ -52,9 +52,15 @@ Sorting Logic - sort_simple
 - repeat until stack a is empty
 - move everything from stack b back to stack a
 
-Next steps:
-- FINISH benchmark flags
-	
-- medium sort
-- complex sort
-- modifications on the main, parse_to_array, check_input
+BENCHMARK UPDATE REPORT
+
+t_bench is now integrated directly into t_data.
+finally no more globals (Juhu) by passing teh data through all sorting and operation functions .
+Benchmark data is now initialized with bench_init AFTER the argument parsing and operation counts are stored in bench.ops[OP_COUNT].
+Each operation is recorded with bench_record.
+I had to create operations_push.c because i hit the 5 functions per file limit.
+Sorting functions now receive only t_data so no more pain with arrays
+
+i changed datatype in calculate_disorder (it uses long long now because i made a test and it overflowed)
+
+bench_print.c contains only the benchmark formatting and output stuff ( also split bench_print for norminette)
