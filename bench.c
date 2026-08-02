@@ -6,11 +6,11 @@
 /*   By: jotto <jotto@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/28 15:02:29 by jotto             #+#    #+#             */
-/*   Updated: 2026/08/02 19:43:58 by jotto            ###   ########.fr       */
+/*   Updated: 2026/08/02 22:06:34 by jotto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "bench.h"
+#include "push_swap.h"
 #include "libft.h"
 
 void	bench_init(t_bench *bench, int enabled)

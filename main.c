@@ -6,13 +6,12 @@
 /*   By: jotto <jotto@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 13:30:20 by lordamas          #+#    #+#             */
-/*   Updated: 2026/08/02 19:46:11 by jotto            ###   ########.fr       */
+/*   Updated: 2026/08/02 22:07:32 by jotto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "push_swap.h"
-#include "bench.h"
 #include <stdlib.h>
 #include <unistd.h>
 
