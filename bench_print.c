@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bench_print.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jotto <jotto@student.42berlin.de>          +#+  +:+       +#+        */
+/*   By: lordamas <lordamas@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/02 19:43:16 by jotto             #+#    #+#             */
-/*   Updated: 2026/08/02 22:06:47 by jotto            ###   ########.fr       */
+/*   Updated: 2026/08/03 08:44:19 by lordamas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	print_disorder(double disorder)
 	int	scaled;
 
 	scaled = (int)(disorder * 10000.0 + 0.5);
-	ft_putstr_fd("[bench] disorder:\t", 2);
+	ft_putstr_fd("[bench] disorder: ", 2);
 	ft_putnbr_fd(scaled / 100, 2);
 	ft_putchar_fd('.', 2);
 	if (scaled % 100 < 10)
@@ -30,11 +30,11 @@ static void	print_disorder(double disorder)
 
 static void	print_strategy(t_strategy strategy)
 {
-	ft_putstr_fd("[bench] strategy:\t", 2);
+	ft_putstr_fd("[bench] strategy: ", 2);
 	if (strategy == SIMPLE)
 		ft_putstr_fd("Simple / O(n^2)", 2);
 	else if (strategy == MEDIUM)
-		ft_putstr_fd("Medium / O(n sqrt(n))", 2);
+		ft_putstr_fd("Medium / O(n√n)", 2);
 	else if (strategy == COMPLEX)
 		ft_putstr_fd("Complex / O(n log n)", 2);
 	else
@@ -51,18 +51,17 @@ static void	print_count(char *pretext, int value, char *end_tab)
 
 static void	print_operation_counts(t_bench *bench)
 {
-	print_count("[bench] sa:\t", bench->ops[OP_SA], "\t");
-	ft_putstr_fd("\n", 2);
-	print_count("sb:\t", bench->ops[OP_SB], "\t");
-	print_count("ss:\t", bench->ops[OP_SS], "\t");
-	print_count("pa:\t", bench->ops[OP_PA], "\t");
-	print_count("pb:\t", bench->ops[OP_PB], "\n");
-	print_count("[bench] ra:\t", bench->ops[OP_RA], "\t");
-	print_count("rb:\t", bench->ops[OP_RB], "\t");
-	print_count("rr:\t", bench->ops[OP_RR], "\t");
-	print_count("rra:\t", bench->ops[OP_RRA], "\t");
-	print_count("rrb:\t", bench->ops[OP_RRB], "\t");
-	print_count("rrr:\t", bench->ops[OP_RRR], "\n");
+	print_count("[bench] sa: ", bench->ops[OP_SA], " ");
+	print_count("sb: ", bench->ops[OP_SB], " ");
+	print_count("ss: ", bench->ops[OP_SS], " ");
+	print_count("pa: ", bench->ops[OP_PA], " ");
+	print_count("pb: ", bench->ops[OP_PB], "\n");
+	print_count("[bench] ra: ", bench->ops[OP_RA], " ");
+	print_count("rb: ", bench->ops[OP_RB], " ");
+	print_count("rr: ", bench->ops[OP_RR], " ");
+	print_count("rra: ", bench->ops[OP_RRA], " ");
+	print_count("rrb: ", bench->ops[OP_RRB], " ");
+	print_count("rrr: ", bench->ops[OP_RRR], "\n");
 }
 
 void	bench_print(double disorder, t_strategy strategy, t_bench *bench)
@@ -71,6 +70,6 @@ void	bench_print(double disorder, t_strategy strategy, t_bench *bench)
 		return ;
 	print_disorder(disorder);
 	print_strategy(strategy);
-	print_count("[bench] total_ops:\t", bench->total_ops, "\n");
+	print_count("[bench] total_ops: ", bench->total_ops, "\n");
 	print_operation_counts(bench);
 }

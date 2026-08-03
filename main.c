@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jotto <jotto@student.42berlin.de>          +#+  +:+       +#+        */
+/*   By: lordamas <lordamas@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 13:30:20 by lordamas          #+#    #+#             */
-/*   Updated: 2026/08/02 22:20:19 by jotto            ###   ########.fr       */
+/*   Updated: 2026/08/03 08:36:50 by lordamas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,12 @@
 #include <unistd.h>
 
 static int	prepare_data(int argc, char **argv, t_data *data,
-		t_strategy *strategy)
+		t_options *options)
 {
-	int	bench;
-
 	data->a = malloc((argc - 1) * sizeof(*data->a));
 	if (data->a == NULL)
 		return (0);
-	data->sizea = parse_args(argc, argv, data->a, strategy, &bench);
+	data->sizea = parse_args(argc, argv, data->a, options);
 	if (data->sizea == 0)
 	{
 		write(2, "Error\n", 6);
@@ -36,7 +34,7 @@ static int	prepare_data(int argc, char **argv, t_data *data,
 		return (0);
 	}
 	data->sizeb = 0;
-	bench_init(&data->bench, bench);
+	bench_init(&data->bench, options->bench);
 	return (1);
 }
 
@@ -62,7 +60,7 @@ static void	run_sort(t_strategy strategy, t_data *data)
 		sort_simple(data);
 	else if (strategy == MEDIUM)
 		sort_medium(data);
-	else
+	else if (strategy == COMPLEX)
 		sort_complex(data);
 }
 
@@ -75,20 +73,20 @@ static void	free_data(t_data *data)
 int	main(int argc, char **argv)
 {
 	t_data		data;
-	t_strategy	strategy;
+	t_options	options;
 	t_strategy	sort_strategy;
 	double		disorder;
 
 	if (argc < 2)
 		return (0);
-	if (!prepare_data(argc, argv, &data, &strategy))
+	if (!prepare_data(argc, argv, &data, &options))
 		return (1);
 	disorder = compute_disorder(data.a, data.sizea);
-	sort_strategy = strategy;
+	sort_strategy = options.strategy;
 	if (sort_strategy == ADAPTIVE)
 		sort_strategy = adaptive_strategy(disorder);
 	run_sort(sort_strategy, &data);
-	bench_print(disorder, strategy, &data.bench);
+	bench_print(disorder, sort_strategy, &data.bench);
 	free_data(&data);
 	return (0);
 }

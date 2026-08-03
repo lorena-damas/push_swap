@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jotto <jotto@student.42berlin.de>          +#+  +:+       +#+        */
+/*   By: lordamas <lordamas@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/15 19:11:38 by lordamas          #+#    #+#             */
-/*   Updated: 2026/08/02 22:10:39 by jotto            ###   ########.fr       */
+/*   Updated: 2026/08/03 08:04:03 by lordamas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,15 @@ typedef struct s_data
 	t_bench	bench;
 }	t_data;
 
+typedef struct s_options
+{
+	t_strategy	strategy;
+	int			bench;
+}	t_options;
+
 //Input Validation
 int			check_input(int argc, char **argv, int *values);
-int			parse_args(int argc, char **argv, int *values, t_strategy *strategy, int *bench);
+int			parse_args(int argc, char **argv, int *values, t_options *options);
 // Strategy
 t_strategy	adaptive_strategy(double disorder);
 double		compute_disorder(int *a, int count);
