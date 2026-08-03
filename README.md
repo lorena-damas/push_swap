@@ -85,7 +85,7 @@ The Push Swap instruction set includes the following stack operations:
 | `rrb`     | Moves the last element of stack B to the top.             |
 | `rrr`     | Executes `rra` and `rrb` simultaneously.                  |
 
-The current sorting strategies mainly use:
+The implemented sorting strategies only use:
 
 ```text
 pa
@@ -258,7 +258,7 @@ Examples of invalid input:
 ./push_swap -2147483649
 ```
 
-Expected output:
+Output:
 
 ```text
 Error
