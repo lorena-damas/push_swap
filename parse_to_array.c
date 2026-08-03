@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_to_array.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lordamas <lordamas@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jotto <jotto@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/26 14:42:35 by lordamas          #+#    #+#             */
-/*   Updated: 2026/08/03 08:10:14 by lordamas         ###   ########.fr       */
+/*   Updated: 2026/08/03 15:42:02 by jotto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	parse_args(int argc, char **argv, int *values, t_options *options)
 	char	**copy;
 	int		count;
 
-	options->strategy= ADAPTIVE;
+	options->strategy = ADAPTIVE;
 	options->bench = 0;
 	copy = malloc(argc * sizeof(*copy));
 	if (copy == NULL)
