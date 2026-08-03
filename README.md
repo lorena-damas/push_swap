@@ -1032,6 +1032,7 @@ The implementation was tested with:
 * Arrays containing 100 values;
 * Arrays containing 500 values;
 * Arrays containing 1000 values;
+* Arrays containing 20k values;
 * Different disorder levels;
 * Every available sorting strategy;
 * The external Push Swap checker.
