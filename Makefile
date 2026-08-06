@@ -6,7 +6,7 @@
 #    By: jotto <jotto@student.42berlin.de>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/07/13 14:00:33 by lordamas          #+#    #+#              #
-#    Updated: 2026/08/02 19:47:02 by jotto            ###   ########.fr        #
+#    Updated: 2026/08/06 12:06:19 by jotto            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,10 +14,8 @@ NAME        = push_swap
 CC          = cc
 RM          = rm -f
 LIBFT_DIR	= libft
-PRINTF_DIR = ft_printf
 LIBFT		= $(LIBFT_DIR)/libft.a
-PRINTF		= $(PRINTF_DIR)/libftprintf.a
-CFLAGS      = -Wall -Wextra -Werror -I. -I$(LIBFT_DIR) -I$(PRINTF_DIR)
+CFLAGS      = -Wall -Wextra -Werror -I. -I$(LIBFT_DIR)
 
 
 # Mandatory sources
@@ -34,12 +32,9 @@ all: $(NAME)
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
 
-$(PRINTF):
-	$(MAKE) -C $(PRINTF_DIR)
-
 # Executable compilation
-$(NAME): $(OBJ) $(LIBFT) $(PRINTF)
-	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(PRINTF) -o $(NAME)
+$(NAME): $(OBJ) $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME)
 
 # Compile .c files into .o files
 %.o: %.c
@@ -49,13 +44,11 @@ $(NAME): $(OBJ) $(LIBFT) $(PRINTF)
 clean:
 	$(RM) $(OBJ)
 	$(MAKE) -C $(LIBFT_DIR) clean
-	$(MAKE) -C $(PRINTF_DIR) clean
 
 # Full clean
 fclean: clean
 	$(RM) $(NAME)
 	$(MAKE) -C $(LIBFT_DIR) fclean
-	$(MAKE) -C $(PRINTF_DIR) fclean
 
 # Total recompilation
 re: fclean all
