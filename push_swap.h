@@ -6,7 +6,7 @@
 /*   By: lordamas <lordamas@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/15 19:11:38 by lordamas          #+#    #+#             */
-/*   Updated: 2026/08/03 08:04:03 by lordamas         ###   ########.fr       */
+/*   Updated: 2026/08/06 08:25:11 by lordamas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int			get_rank(int *sorted, int count, int value);
 // Benchmark
 void		bench_init(t_bench *bench, int enabled);
 void		bench_record(t_bench *bench, t_op op);
-void		bench_print(double disorder, t_strategy strategy, t_bench *bench);
+void		bench_print(double disorder, t_strategy requested,
+				t_strategy selected, t_bench *bench);
 
 #endif

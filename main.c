@@ -6,7 +6,7 @@
 /*   By: lordamas <lordamas@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 13:30:20 by lordamas          #+#    #+#             */
-/*   Updated: 2026/08/03 08:36:50 by lordamas         ###   ########.fr       */
+/*   Updated: 2026/08/06 08:25:26 by lordamas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	main(int argc, char **argv)
 	if (sort_strategy == ADAPTIVE)
 		sort_strategy = adaptive_strategy(disorder);
 	run_sort(sort_strategy, &data);
-	bench_print(disorder, sort_strategy, &data.bench);
+	bench_print(disorder, options.strategy, sort_strategy, &data.bench);
 	free_data(&data);
 	return (0);
 }

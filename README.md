@@ -37,6 +37,7 @@ The project focuses on:
 * Sorting strategies;
 * Binary representation;
 * Rank normalization;
+* Benchmark instrumentation;
 * Collaboration and project organization.
 
 ## Project Objective
@@ -98,30 +99,45 @@ rrb
 
 ## Features
 
-| Feature                   | Description                                                              |
-| :------------------------ | :----------------------------------------------------------------------- |
-| **Input validation**      | Rejects invalid integers, duplicates and values outside the `int` range. |
-| **Multiple strategies**   | Supports simple, medium, complex and adaptive sorting modes.             |
-| **Default adaptive mode** | Automatically chooses a strategy according to the disorder level.        |
-| **Rank normalization**    | Replaces values internally with ranks from `0` to `n - 1`.               |
-| **Array-based stacks**    | Represents stacks A and B using integer arrays and size variables.       |
-| **Operation output**      | Prints one valid Push Swap instruction per line.                         |
-| **Error handling**        | Prints `Error` for invalid input.                                        |
-| **Negative values**       | Correctly handles negative integers.                                     |
-| **Complexity comparison** | Makes it possible to compare different sorting approaches.               |
-| **Memory management**     | Frees dynamically allocated arrays after execution.                      |
+| Feature                   | Description                                                                         |
+| :------------------------ | :---------------------------------------------------------------------------------- |
+| **Input validation**      | Rejects invalid integers, duplicates and values outside the `int` range.            |
+| **Multiple strategies**   | Supports simple, medium, complex and adaptive sorting modes.                        |
+| **Default adaptive mode** | Automatically chooses a strategy according to the disorder level.                   |
+| **Benchmark mode**        | Counts operations and prints disorder, selected complexity and metrics to `stderr`. |
+| **Rank normalization**    | Replaces values internally with ranks from `0` to `n - 1`.                          |
+| **Operation output**      | Prints one valid Push Swap instruction per line to `stdout`.                        |
+| **Error handling**        | Prints `Error` for invalid input.                                                   |
+| **Negative values**       | Correctly handles negative integers.                                                |
+| **Complexity comparison** | Makes it possible to compare different sorting approaches.                          |
+| **Memory management**     | Frees dynamically allocated arrays after execution.                                 |
+
+
+## Implementation Structure
+
+The program is organized around two main structures:
+
+* `t_data` stores stacks A and B, their current sizes and the benchmark counters;
+* `t_options` stores the selected sorting mode and whether benchmark mode is enabled.
+
+Input parsing, stack operations, sorting algorithms and benchmark output are kept in separate source files. Push operations are implemented in `operations_push.c`, while swap, rotate and reverse-rotate operations are handled in `operations.c`.
+
+When `--bench` is enabled, operation statistics are written to `stderr`. Sorting instructions remain on `stdout`, allowing them to be sent directly to the external checker.
+
+In adaptive mode, the program measures the disorder of the input and selects the simple, medium or complex algorithm according to the configured thresholds.
 
 ## Strategy Flags
 
 The program supports the following flags:
 
-| Flag         | Strategy                                        |
-| :----------- | :---------------------------------------------- |
-| `--simple`   | Uses repeated minimum extraction.               |
-| `--medium`   | Uses rank-based chunk sorting.                  |
-| `--complex`  | Uses binary LSD Radix Sort.                     |
-| `--adaptive` | Chooses a strategy based on the disorder level. |
-| No flag      | Uses the adaptive strategy by default.          |
+| Flag         | Strategy or option                                                                |
+| :----------- | :-------------------------------------------------------------------------------- |
+| `--simple`   | Uses repeated minimum extraction.                                                 |
+| `--medium`   | Uses rank-based chunk sorting.                                                    |
+| `--complex`  | Uses binary LSD Radix Sort.                                                       |
+| `--adaptive` | Chooses a strategy based on the disorder level.                                   |
+| `--bench`    | Enables metrics on `stderr` while operations remain available on `stdout`.         |
+| No strategy flag | Uses the adaptive strategy by default.                                       |
 
 Examples:
 
@@ -145,6 +161,12 @@ Examples:
 ./push_swap 4 2 7 1 3
 ```
 
+The flags may also be placed after the numbers:
+
+```bash
+./push_swap 4 2 7 1 3 --adaptive --bench
+```
+
 ## Project Files
 
 ```text
@@ -155,34 +177,53 @@ main.c
 check_input.c
 parse_to_array.c
 operations.c
+operations_push.c
 sorting_helpers.c
 rank_helpers.c
 sort_simple.c
 sort_medium.c
 sort_complex.c
 sort_adaptive.c
+bench.c
+bench_print.c
+libft/
 ```
 
 ### File Responsibilities
 
-| File                | Purpose                                                                        |
-| :------------------ | :----------------------------------------------------------------------------- |
-| `main.c`            | Initializes the program, prepares the arrays and starts the selected strategy. |
-| `check_input.c`     | Validates numbers, integer limits and duplicates.                              |
-| `parse_to_array.c`  | Parses strategy flags and copies valid numeric arguments.                      |
-| `operations.c`      | Implements stack operations and prints their names.                            |
-| `sorting_helpers.c` | Contains sorting and value-search helper functions.                            |
-| `rank_helpers.c`    | Converts original values into normalized ranks.                                |
-| `sort_simple.c`     | Implements the simple sorting strategy.                                        |
-| `sort_medium.c`     | Implements the chunk-based strategy.                                           |
-| `sort_complex.c`    | Implements binary LSD Radix Sort.                                              |
-| `sort_adaptive.c`   | Calculates disorder and selects a sorting strategy.                            |
-| `push_swap.h`       | Contains shared declarations, prototypes and structures.                       |
-| `Makefile`          | Compiles the project and manages object files.                                 |
+| File                  | Purpose                                                                                 |
+| :-------------------- | :-------------------------------------------------------------------------------------- |
+| `main.c`              | Prepares `t_data`, resolves adaptive mode and starts the selected strategy.              |
+| `check_input.c`       | Validates numbers, integer limits and duplicates.                                       |
+| `parse_to_array.c`    | Parses strategy and benchmark options and copies valid numeric arguments.                |
+| `operations.c`        | Implements swap, rotate and reverse-rotate operations.                                  |
+| `operations_push.c`   | Implements `pa` and `pb` and updates both stack sizes.                                  |
+| `sorting_helpers.c`   | Contains sorting and value-search helper functions.                                     |
+| `rank_helpers.c`      | Converts original values into normalized ranks.                                         |
+| `sort_simple.c`       | Implements the simple sorting strategy.                                                 |
+| `sort_medium.c`       | Implements the chunk-based strategy.                                                    |
+| `sort_complex.c`      | Implements binary LSD Radix Sort.                                                       |
+| `sort_adaptive.c`     | Calculates disorder and selects the algorithm used by adaptive mode.                     |
+| `bench.c`             | Initializes benchmark state and records every executed operation.                        |
+| `bench_print.c`       | Prints disorder, strategy complexity and operation counts to `stderr`.                   |
+| `push_swap.h`         | Contains shared enumerations, structures and prototypes.                                |
+| `libft/`              | Provides the permitted helper functions used by parsing and benchmark output.            |
+| `Makefile`            | Compiles the sources and Libft, manages dependencies and creates the executable.          |
 
 ## Stack Representation
 
-The project represents stacks using arrays.
+The project represents stacks using arrays. Both arrays, their current sizes and the benchmark state are stored inside `t_data`.
+
+```c
+typedef struct s_data
+{
+	int		*a;
+	int		*b;
+	int		sizea;
+	int		sizeb;
+	t_bench	bench;
+}	t_data;
+```
 
 For example:
 
@@ -789,10 +830,20 @@ High disorder   → complex
 The thresholds used by the implementation are:
 
 ```text
-disorder < 0.20       → simple
-disorder < 0.50       → medium
-disorder >= 0.50      → complex
+disorder < 0.20                 → simple
+disorder >= 0.20 and < 0.50     → medium
+disorder >= 0.50                → complex
 ```
+
+When benchmark mode is enabled together with adaptive mode, the output keeps the requested mode name and reports the complexity of the algorithm that was actually selected:
+
+```text
+Adaptive / O(n²)       → disorder below 20%
+Adaptive / O(n√n)      → disorder from 20% to below 50%
+Adaptive / O(n log n)  → disorder of 50% or more
+```
+
+For explicit modes, the benchmark prints `Simple`, `Medium` or `Complex` instead of `Adaptive`.
 
 ### Why Use an Adaptive Strategy?
 
@@ -831,32 +882,30 @@ flowchart TD
     A[Start push_swap] --> B{Arguments provided?}
 
     B -- No --> Z[Exit without output]
-    B -- Yes --> C[Parse strategy flags]
+    B -- Yes --> C[Parse strategy and benchmark options]
 
-    C --> D{Valid flags?}
+    C --> D{Valid options?}
     D -- No --> E[Print Error]
     D -- Yes --> F[Validate numeric arguments]
 
     F --> G{Valid integers?}
     G -- No --> E
-    G -- Yes --> H[Allocate stack arrays]
+    G -- Yes --> H[Allocate and initialize t_data]
 
-    H --> I[Convert arguments to integers]
-    I --> J{Already sorted?}
+    H --> I[Calculate disorder]
+    I --> J{Adaptive requested?}
 
-    J -- Yes --> K[Free memory and exit]
-    J -- No --> L{Selected strategy}
+    J -- Yes --> K[Select simple, medium or complex]
+    J -- No --> L[Keep explicit strategy]
 
-    L --> M[Simple]
-    L --> N[Medium]
-    L --> O[Complex]
-    L --> P[Adaptive]
+    K --> M[Run selected algorithm]
+    L --> M
+    M --> N[Print operations to stdout]
+    N --> O{Benchmark enabled?}
 
-    M --> Q[Print operations]
-    N --> Q
-    O --> Q
+    O -- Yes --> P[Print metrics to stderr]
+    O -- No --> Q[Continue]
     P --> Q
-
     Q --> R[Free allocated memory]
     R --> S[End program]
 ```
@@ -882,6 +931,13 @@ The project is compiled using:
 ```text
 -Wall -Wextra -Werror
 ```
+
+The Makefile:
+
+* compiles all project source files;
+* builds and links `libft/libft.a`;
+* recompiles dependent object files when `push_swap.h` changes;
+* avoids unnecessary relinking.
 
 ### Makefile Rules
 
@@ -923,6 +979,35 @@ The project is compiled using:
 
 ```bash
 ./push_swap --adaptive 5 3 8 1 7 2
+```
+
+### Benchmark Mode
+
+Benchmark mode keeps operations on `stdout` and writes only metrics to `stderr`:
+
+```bash
+ARG="4 67 3 87 23"
+./push_swap --bench --adaptive $ARG 2> bench.txt \
+	| ./checker_linux $ARG
+cat bench.txt
+```
+
+Example benchmark output:
+
+```text
+[bench] disorder: 40.00%
+[bench] strategy: Adaptive / O(n√n)
+[bench] total_ops: 13
+[bench] sa: 0 sb: 0 ss: 0 pa: 5 pb: 5
+[bench] ra: 2 rb: 1 rr: 0 rra: 0 rrb: 0 rrr: 0
+```
+
+Generate and test 500 unique values while saving the metrics:
+
+```bash
+shuf -i 0-9999 -n 500 > args.txt ; \
+	./push_swap --bench $(cat args.txt) 2> bench.txt \
+	| ./checker_linux $(cat args.txt)
 ```
 
 ### Store Operations in a File
@@ -976,6 +1061,14 @@ To count the generated operations:
 
 The external checker is used only for testing and is not part of the main program.
 
+With benchmark mode, redirect only `stderr`; the checker must continue receiving the operation stream from `stdout`:
+
+```bash
+ARG="4 67 3 87 23"
+./push_swap --bench --adaptive $ARG 2> bench.txt \
+	| ./checker_linux $ARG
+```
+
 ## Random Testing
 
 Generate 100 unique values:
@@ -1011,6 +1104,13 @@ echo "complex:  $(./push_swap --complex $ARG | wc -l)"
 echo "adaptive: $(./push_swap --adaptive $ARG | wc -l)"
 ```
 
+Run the default adaptive mode with benchmark output:
+
+```bash
+./push_swap --bench $ARG > operations.txt 2> bench.txt
+cat bench.txt
+```
+
 ## Testing
 
 The implementation was tested with:
@@ -1033,8 +1133,9 @@ The implementation was tested with:
 * Arrays containing 500 values;
 * Arrays containing 1000 values;
 * Arrays containing 20k values;
-* Different disorder levels;
+* Different disorder levels and adaptive boundary values at 20% and 50%;
 * Every available sorting strategy;
+* Benchmark operation counting and `stdout`/`stderr` separation;
 * The external Push Swap checker.
 
 ### Example Performance Results
@@ -1147,6 +1248,10 @@ Examples:
   * `man 3 free`
   * `man 2 write`
 
+* **Libft**
+
+  * Used for string comparison, memory initialization and formatted output to file descriptors.
+
 * **42 Push Swap Subject**
 
   * Used as the primary reference for project requirements, valid operations, input rules and evaluation criteria.
@@ -1190,7 +1295,7 @@ To understand the algorithms and produce a reliable implementation, several exte
 * **Documentation and Formatting**: AI was used to organize and review this README, including tables, examples and Mermaid diagrams.
 * **Collaborative Development**: The project was developed collaboratively by `lordamas` and `jotto`, with code review, testing and discussion of algorithmic decisions shared between both contributors.
 
-The final implementation, testing decisions and understanding of the code remain the responsibility of the project authors.
+The project authors remain responsible for the implementation, testing decisions and understanding of the code.
 
 ---
 
