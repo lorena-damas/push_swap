@@ -6,7 +6,7 @@
 /*   By: lordamas <lordamas@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/02 19:43:16 by jotto             #+#    #+#             */
-/*   Updated: 2026/08/03 08:44:19 by lordamas         ###   ########.fr       */
+/*   Updated: 2026/08/06 08:25:08 by lordamas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,23 @@ static void	print_disorder(double disorder)
 	ft_putstr_fd("\n", 2);
 }
 
-static void	print_strategy(t_strategy strategy)
+static void	print_strategy(t_strategy requested, t_strategy selected)
 {
 	ft_putstr_fd("[bench] strategy: ", 2);
-	if (strategy == SIMPLE)
-		ft_putstr_fd("Simple / O(n^2)", 2);
-	else if (strategy == MEDIUM)
-		ft_putstr_fd("Medium / O(n√n)", 2);
-	else if (strategy == COMPLEX)
-		ft_putstr_fd("Complex / O(n log n)", 2);
+	if (requested == ADAPTIVE)
+		ft_putstr_fd("Adaptive / ", 2);
+	else if (requested == SIMPLE)
+		ft_putstr_fd("Simple / ", 2);
+	else if (requested == MEDIUM)
+		ft_putstr_fd("Medium / ", 2);
 	else
-		ft_putstr_fd("Adaptive / O(n√n)", 2);
+		ft_putstr_fd("Complex / ", 2);
+	if (selected == SIMPLE)
+		ft_putstr_fd("O(n²)", 2);
+	else if (selected == MEDIUM)
+		ft_putstr_fd("O(n√n)", 2);
+	else
+		ft_putstr_fd("O(n log n)", 2);
 	ft_putstr_fd("\n", 2);
 }
 
@@ -64,12 +70,13 @@ static void	print_operation_counts(t_bench *bench)
 	print_count("rrr: ", bench->ops[OP_RRR], "\n");
 }
 
-void	bench_print(double disorder, t_strategy strategy, t_bench *bench)
+void	bench_print(double disorder, t_strategy requested,
+			t_strategy selected, t_bench *bench)
 {
 	if (bench == NULL || !bench->enabled)
 		return ;
 	print_disorder(disorder);
-	print_strategy(strategy);
+	print_strategy(requested, selected);
 	print_count("[bench] total_ops: ", bench->total_ops, "\n");
 	print_operation_counts(bench);
 }
