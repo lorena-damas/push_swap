@@ -14,30 +14,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-static int	prepare_data(int argc, char **argv, t_data *data,
-		t_options *options)
-{
-	data->a = malloc((argc - 1) * sizeof(*data->a));
-	if (data->a == NULL)
-		return (0);
-	data->sizea = parse_args(argc, argv, data->a, options);
-	if (data->sizea == 0)
-	{
-		write(2, "Error\n", 6);
-		free(data->a);
-		return (0);
-	}
-	data->b = malloc(data->sizea * sizeof(*data->b));
-	if (data->b == NULL)
-	{
-		free(data->a);
-		return (0);
-	}
-	data->sizeb = 0;
-	bench_init(&data->bench, options->bench);
-	return (1);
-}
-
 static int	is_sorted(int *a, int sizea)
 {
 	int	i;
@@ -79,7 +55,7 @@ int	main(int argc, char **argv)
 
 	if (argc < 2)
 		return (0);
-	if (!prepare_data(argc, argv, &data, &options))
+	if (!prepare_input(argc, argv, &data, &options))
 		return (1);
 	disorder = compute_disorder(data.a, data.sizea);
 	sort_strategy = options.strategy;

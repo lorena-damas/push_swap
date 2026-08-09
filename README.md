@@ -102,6 +102,7 @@ rrb
 | Feature                   | Description                                                                         |
 | :------------------------ | :---------------------------------------------------------------------------------- |
 | **Input validation**      | Rejects invalid integers, duplicates and values outside the `int` range.            |
+| **Grouped input support** | Accepts integers passed separately or inside space-separated argument strings.      |
 | **Multiple strategies**   | Supports simple, medium, complex and adaptive sorting modes.                        |
 | **Default adaptive mode** | Automatically chooses a strategy according to the disorder level.                   |
 | **Benchmark mode**        | Counts operations and prints disorder, selected complexity and metrics to `stderr`. |
@@ -115,12 +116,13 @@ rrb
 
 ## Implementation Structure
 
-The program is organized around two main structures:
+The program is organized around three main structures:
 
 * `t_data` stores stacks A and B, their current sizes and the benchmark counters;
-* `t_options` stores the selected sorting mode and whether benchmark mode is enabled.
+* `t_options` stores the selected sorting mode and whether benchmark mode is enabled;
+* `t_input` stores the normalized `argc` and `argv` used after grouped arguments are split.
 
-Input parsing, stack operations, sorting algorithms and benchmark output are kept in separate source files. Push operations are implemented in `operations_push.c`, while swap, rotate and reverse-rotate operations are handled in `operations.c`.
+Input normalization, parsing, stack operations, sorting algorithms and benchmark output are kept in separate source files. `expand_args.c` separates arguments that contain multiple space-separated values, while `input_setup.c` prepares the normalized input and initializes `t_data`. Push operations are implemented in `operations_push.c`, while swap, rotate and reverse-rotate operations are handled in `operations.c`.
 
 When `--bench` is enabled, operation statistics are written to `stderr`. Sorting instructions remain on `stdout`, allowing them to be sent directly to the external checker.
 
@@ -174,6 +176,8 @@ Makefile
 README.md
 push_swap.h
 main.c
+input_setup.c
+expand_args.c
 check_input.c
 parse_to_array.c
 operations.c
@@ -193,7 +197,9 @@ libft/
 
 | File                  | Purpose                                                                                 |
 | :-------------------- | :-------------------------------------------------------------------------------------- |
-| `main.c`              | Prepares `t_data`, resolves adaptive mode and starts the selected strategy.              |
+| `main.c`              | Controls the main program flow, resolves adaptive mode and starts the selected strategy. |
+| `input_setup.c`       | Prepares normalized input, allocates the stacks and initializes `t_data`.                |
+| `expand_args.c`       | Splits grouped space-separated arguments into a normalized `argc`/`argv`.                |
 | `check_input.c`       | Validates numbers, integer limits and duplicates.                                       |
 | `parse_to_array.c`    | Parses strategy and benchmark options and copies valid numeric arguments.                |
 | `operations.c`        | Implements swap, rotate and reverse-rotate operations.                                  |
@@ -268,7 +274,21 @@ sizeb: 0 → 1
 
 ## Input Validation
 
-Before sorting, the program verifies that every argument is valid.
+Before sorting, the program normalizes the received arguments and then verifies that every numeric value is valid.
+
+Arguments may be provided separately:
+
+```bash
+./push_swap 4 67 3 87 23
+```
+
+or inside a single space-separated argument:
+
+```bash
+./push_swap "4 67 3 87 23"
+```
+
+`expand_args.c` uses `ft_split` to create a normalized argument list before validation. This also allows shell variables that are passed as one argument, as may happen in `zsh`, to be handled by the program itself.
 
 The validation includes:
 
@@ -882,32 +902,33 @@ flowchart TD
     A[Start push_swap] --> B{Arguments provided?}
 
     B -- No --> Z[Exit without output]
-    B -- Yes --> C[Parse strategy and benchmark options]
+    B -- Yes --> C[Normalize grouped arguments]
 
-    C --> D{Valid options?}
-    D -- No --> E[Print Error]
-    D -- Yes --> F[Validate numeric arguments]
+    C --> D[Parse strategy and benchmark options]
+    D --> E{Valid options?}
+    E -- No --> F[Print Error]
+    E -- Yes --> G[Validate numeric arguments]
 
-    F --> G{Valid integers?}
-    G -- No --> E
-    G -- Yes --> H[Allocate and initialize t_data]
+    G --> H{Valid integers?}
+    H -- No --> F
+    H -- Yes --> I[Allocate and initialize t_data]
 
-    H --> I[Calculate disorder]
-    I --> J{Adaptive requested?}
+    I --> J[Calculate disorder]
+    J --> K{Adaptive requested?}
 
-    J -- Yes --> K[Select simple, medium or complex]
-    J -- No --> L[Keep explicit strategy]
+    K -- Yes --> L[Select simple, medium or complex]
+    K -- No --> M[Keep explicit strategy]
 
-    K --> M[Run selected algorithm]
-    L --> M
-    M --> N[Print operations to stdout]
-    N --> O{Benchmark enabled?}
+    L --> N[Run selected algorithm]
+    M --> N
+    N --> O[Print operations to stdout]
+    O --> P{Benchmark enabled?}
 
-    O -- Yes --> P[Print metrics to stderr]
-    O -- No --> Q[Continue]
-    P --> Q
-    Q --> R[Free allocated memory]
-    R --> S[End program]
+    P -- Yes --> Q[Print metrics to stderr]
+    P -- No --> R[Continue]
+    Q --> R
+    R --> S[Free allocated memory]
+    S --> T[End program]
 ```
 
 ## Instructions
@@ -981,6 +1002,27 @@ The Makefile:
 ./push_swap --adaptive 5 3 8 1 7 2
 ```
 
+### Grouped Arguments and Shell Variables
+
+The program also accepts several integers inside one argument:
+
+```bash
+./push_swap "4 67 3 87 23"
+```
+
+This is normalized internally before parsing and validation. The same behavior works together with strategy and benchmark flags:
+
+```bash
+./push_swap --bench --adaptive "4 67 3 87 23"
+```
+
+This makes commands based on a shell variable compatible with shells that may pass its contents as a single argument:
+
+```bash
+ARG="4 67 3 87 23"
+./push_swap --adaptive $ARG
+```
+
 ### Benchmark Mode
 
 Benchmark mode keeps operations on `stdout` and writes only metrics to `stderr`:
@@ -1044,6 +1086,13 @@ Using a shell variable:
 ```bash
 ARG="40 -5 20 8"
 ./push_swap --complex $ARG | ./checker_linux $ARG
+```
+
+The program also accepts the numbers as a single grouped argument:
+
+```bash
+./push_swap --complex "40 -5 20 8" \
+    | ./checker_linux 40 -5 20 8
 ```
 
 For 100 random unique values:
@@ -1129,6 +1178,8 @@ The implementation was tested with:
 * Duplicate values;
 * Invalid numeric strings;
 * Invalid strategy flags;
+* Space-separated integers passed inside one argument;
+* Shell-variable input compatible with `zsh`-style argument handling;
 * Arrays containing 100 values;
 * Arrays containing 500 values;
 * Arrays containing 1000 values;
@@ -1206,6 +1257,7 @@ Non-numeric arguments         → Error
 Values above INT_MAX          → Error
 Values below INT_MIN          → Error
 Invalid strategy flag         → Error
+Grouped integer argument       → valid
 ```
 
 Examples:
@@ -1236,6 +1288,10 @@ Examples:
 
 ```bash
 ./push_swap -2147483649
+```
+
+```bash
+./push_swap "4 67 3 87 23"
 ```
 
 ## Resources

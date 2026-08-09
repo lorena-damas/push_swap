@@ -59,6 +59,12 @@ typedef struct s_options
 	int			bench;
 }	t_options;
 
+typedef struct s_input
+{
+	int		argc;
+	char	**argv;
+}	t_input;
+
 //Input Validation
 int			check_input(int argc, char **argv, int *values);
 int			parse_args(int argc, char **argv, int *values, t_options *options);
@@ -85,5 +91,10 @@ void		bench_init(t_bench *bench, int enabled);
 void		bench_record(t_bench *bench, t_op op);
 void		bench_print(double disorder, t_strategy requested,
 				t_strategy selected, t_bench *bench);
+// ARG/benchmark checker
+int			expand_args(int argc, char **argv, t_input *input);
+void		free_expanded_args(t_input *input);
+int			prepare_input(int argc, char **argv, t_data *data,
+				t_options *options);
 
 #endif
